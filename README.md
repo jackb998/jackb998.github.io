@@ -14,6 +14,7 @@ The site presents my experience in BI, reporting and FP&A, a personal blog, my e
 | Blog | `/blog/` | Personal posts on reporting, data and sport |
 | Sport | `/sport/` | Past races and upcoming events |
 | Contact | `/contact/` | LinkedIn, GitHub, contact form ("Let's connect" / "Hire me", optional CV request), support |
+| Italian version | `/it/` | Same pages in Italian (`/it/blog/`, `/it/sport/`, `/it/contact/`), switch with the "Italiano / English" button |
 
 ## Built with
 
@@ -33,8 +34,11 @@ blog/index.html         List of posts
 blog/_post-template.html  Template for new posts (not published)
 sport/index.html        Races and upcoming events
 contact/index.html      Contact form and support section
+it/                     Italian version of every page (same structure)
 assets/                 Images (Buy Me a Coffee QR code)
 ```
+
+When you change a text, update both the English page and its Italian copy in `it/`.
 
 ## Editing
 

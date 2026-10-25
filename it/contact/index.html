@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contatti – Jacopo Beghetto</title>
+<meta name="description" content="Contatta Jacopo Beghetto, Data & BI Analyst a Losanna: per restare in contatto, richiedere il CV o proporre una posizione."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://jackb998.github.io/it/contact/"/>
+<meta property="og:title" content="Contatti – Jacopo Beghetto"/>
+<meta property="og:description" content="Restiamo in contatto, richiedi il mio CV o proponimi una posizione."/>
+<link rel="alternate" hreflang="en" href="https://jackb998.github.io/contact/"/>
+<link rel="alternate" hreflang="it" href="https://jackb998.github.io/it/contact/"/>
+<link rel="stylesheet" href="../../style.css"/>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <h1><a href="../">Jacopo Beghetto</a></h1>
+  <p class="subtitle">Contatti · Data &amp; BI Analyst, aperto a nuove opportunità</p>
+  <nav>
+    <a href="../">Home</a>
+    <a href="../blog/">Blog</a>
+    <a href="../sport/">Sport</a>
+    <a href="./" aria-current="page">Contatti</a>
+    <a href="#cv">Richiedi CV</a>
+    <a class="lang" href="../../contact/" hreflang="en" lang="en">English</a>
+  </nav>
+</header>
+
+<!-- LINK -->
+<section>
+  <h2>Dove trovarmi</h2>
+  <ul class="contact">
+    <li><span>LinkedIn</span><a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">linkedin.com/in/jacopo-beghetto</a></li>
+    <li><span>GitHub</span><a href="https://github.com/jackb998" target="_blank" rel="noopener">github.com/jackb998</a></li>
+  </ul>
+</section>
+
+<!-- FORM: incolla la chiave Web3Forms in value="" qui sotto (la stessa della pagina inglese). -->
+<section id="cv">
+  <h2>Scrivimi</h2>
+  <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value=""/>
+    <input type="hidden" name="subject" value=""/>
+    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
+
+    <!-- Le due opzioni: i campi qui sotto cambiano in base alla scelta.
+         I valori restano in inglese così l'oggetto dell'email è uguale a quello della pagina inglese. -->
+    <fieldset class="choice">
+      <legend>Cosa ti porta qui?</legend>
+      <label><input type="radio" name="topic" value="Let's connect" checked/> Restiamo in contatto</label>
+      <label><input type="radio" name="topic" value="Hire me"/> Vuoi assumermi?</label>
+    </fieldset>
+
+    <label>Nome<input type="text" name="name" autocomplete="name" required/></label>
+    <label>Email<input type="email" name="email" autocomplete="email" required/></label>
+
+    <!-- Solo per "Vuoi assumermi?" -->
+    <div class="hire-fields" hidden>
+      <label>Azienda<input type="text" name="company" autocomplete="organization"/></label>
+      <label>Ruolo<input type="text" name="role" placeholder="es. BI Analyst, Losanna"/></label>
+    </div>
+
+    <label>Messaggio<textarea name="message" id="message" required></textarea></label>
+    <label class="check"><input type="checkbox" name="cv_request" value="Yes" id="cvBox"/> Inviami il tuo CV</label>
+
+    <button type="submit" id="sendBtn">Invia messaggio</button>
+    <p class="form-note" id="formNote" role="status"></p>
+  </form>
+</section>
+
+<!-- SUPPORTO -->
+<section id="support">
+  <h2>Supporto</h2>
+  <div class="support">
+    <div>
+      <p>Se ti piace il mio blog o hai trovato qualcosa di utile qui, puoi offrirmi un caffè.</p>
+      <a class="button coffee" href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">☕ Offrimi un caffè</a>
+    </div>
+    <!-- QR code: da inquadrare con il telefono (nascosto sugli schermi piccoli, dove basta il bottone) -->
+    <figure class="qr">
+      <img src="../../assets/bmc-qr.png" alt="QR code per la pagina Buy Me a Coffee di Jacopo" width="140" height="140"/>
+      <figcaption>oppure inquadra con il telefono</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © <span id="year">2026</span> Jacopo Beghetto · Losanna, Svizzera
+</footer>
+
+</div>
+<script>
+// Anno nel footer
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Form: "Restiamo in contatto" o "Vuoi assumermi?", inviato tramite Web3Forms
+const form=document.getElementById('contactForm');
+const note=document.getElementById('formNote');
+const hireFields=form.querySelector('.hire-fields');
+
+// Adatta il form all'opzione scelta
+function updateForm(){
+  const hire=form.elements.topic.value==='Hire me';
+  hireFields.hidden=!hire;
+  form.elements.company.required=hire;
+  document.getElementById('message').placeholder=hire?'Raccontami del ruolo, del team e dei prossimi passi.':'';
+  document.getElementById('sendBtn').textContent=hire?'Invia proposta':'Invia messaggio';
+}
+form.querySelectorAll('input[name="topic"]').forEach(r=>r.addEventListener('change',updateForm));
+
+// I link "Richiedi CV" puntano a #cv: spunta la casella del CV
+function checkHash(){
+  if(location.hash==='#cv') document.getElementById('cvBox').checked=true;
+}
+window.addEventListener('hashchange',checkHash);
+checkHash();
+
+form.addEventListener('submit',async function(e){
+  e.preventDefault();
+  const data=new FormData(form);
+  if(!data.get('access_key')){
+    note.innerHTML='Il form non è ancora attivo. Contattami su <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
+    return;
+  }
+  // Oggetto dell'email, es. "Hire me + CV request – jackb998.github.io (IT)"
+  data.set('subject',data.get('topic')+(data.get('cv_request')?' + CV request':'')+' – jackb998.github.io (IT)');
+  note.textContent='Invio in corso...';
+  try{
+    const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
+    const out=await res.json();
+    if(!out.success) throw new Error(out.message);
+    form.reset();
+    updateForm();
+    note.textContent='Grazie, il messaggio è stato inviato. Ti risponderò via email.';
+  }catch(err){
+    note.innerHTML='Spiacente, non è stato possibile inviare il messaggio. Contattami su <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
+  }
+});
+</script>
+</body>
+</html>
