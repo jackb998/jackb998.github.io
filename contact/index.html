@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact – Jacopo Beghetto</title>
+<meta name="description" content="Get in touch with Jacopo Beghetto, Data & BI Analyst in Lausanne: connect, request his CV or discuss a role."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://jackb998.github.io/contact/"/>
+<meta property="og:title" content="Contact – Jacopo Beghetto"/>
+<meta property="og:description" content="Connect, request my CV or discuss a role."/>
+<link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <h1><a href="../">Jacopo Beghetto</a></h1>
+  <p class="subtitle">Contact · Data &amp; BI Analyst, open to new opportunities</p>
+  <nav>
+    <a href="../">Home</a>
+    <a href="../blog/">Blog</a>
+    <a href="./" aria-current="page">Contact</a>
+    <a href="#cv">Request CV</a>
+  </nav>
+</header>
+
+<!-- LINKS -->
+<section>
+  <h2>Find me</h2>
+  <ul class="contact">
+    <li><span>LinkedIn</span><a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">linkedin.com/in/jacopo-beghetto</a></li>
+    <li><span>GitHub</span><a href="https://github.com/jackb998" target="_blank" rel="noopener">github.com/jackb998</a></li>
+  </ul>
+</section>
+
+<!-- CONTACT FORM: paste the Web3Forms access key in value="" below to receive messages by email. -->
+<section id="cv">
+  <h2>Write to me</h2>
+  <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value=""/>
+    <input type="hidden" name="subject" value=""/>
+    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
+
+    <!-- The two options: the fields below change with the choice -->
+    <fieldset class="choice">
+      <legend>What brings you here?</legend>
+      <label><input type="radio" name="topic" value="Let's connect" checked/> Let's connect</label>
+      <label><input type="radio" name="topic" value="Hire me"/> Do you want to hire me?</label>
+    </fieldset>
+
+    <label>Name<input type="text" name="name" autocomplete="name" required/></label>
+    <label>Email<input type="email" name="email" autocomplete="email" required/></label>
+
+    <!-- Only for "Hire me" -->
+    <div class="hire-fields" hidden>
+      <label>Company<input type="text" name="company" autocomplete="organization"/></label>
+      <label>Role<input type="text" name="role" placeholder="e.g. BI Analyst, Lausanne"/></label>
+    </div>
+
+    <label>Message<textarea name="message" id="message" required></textarea></label>
+    <label class="check"><input type="checkbox" name="cv_request" value="Yes" id="cvBox"/> Please send me your CV</label>
+
+    <button type="submit" id="sendBtn">Send message</button>
+    <p class="form-note" id="formNote" role="status"></p>
+  </form>
+</section>
+
+<!-- SUPPORT -->
+<section>
+  <h2>Support</h2>
+  <p>If you enjoy my blog or found something here useful, you can buy me a coffee.</p>
+  <a class="button coffee" href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">☕ Buy me a coffee</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © <span id="year">2026</span> Jacopo Beghetto · Lausanne, Switzerland
+</footer>
+
+</div>
+<script>
+// Footer year
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Contact form: "Let's connect" or "Hire me", sent through Web3Forms
+const form=document.getElementById('contactForm');
+const note=document.getElementById('formNote');
+const hireFields=form.querySelector('.hire-fields');
+
+// Adapt the form to the chosen option
+function updateForm(){
+  const hire=form.elements.topic.value==='Hire me';
+  hireFields.hidden=!hire;
+  form.elements.company.required=hire;
+  document.getElementById('message').placeholder=hire?'Tell me about the role, the team and the next steps.':'';
+  document.getElementById('sendBtn').textContent=hire?'Send opportunity':'Send message';
+}
+form.querySelectorAll('input[name="topic"]').forEach(r=>r.addEventListener('change',updateForm));
+
+// "Request CV" links point to #cv: tick the CV box
+function checkHash(){
+  if(location.hash==='#cv') document.getElementById('cvBox').checked=true;
+}
+window.addEventListener('hashchange',checkHash);
+checkHash();
+
+form.addEventListener('submit',async function(e){
+  e.preventDefault();
+  const data=new FormData(form);
+  if(!data.get('access_key')){
+    note.innerHTML='The form is not active yet. Please contact me on <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
+    return;
+  }
+  // Email subject, e.g. "Hire me + CV request – jackb998.github.io"
+  data.set('subject',data.get('topic')+(data.get('cv_request')?' + CV request':'')+' – jackb998.github.io');
+  note.textContent='Sending...';
+  try{
+    const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
+    const out=await res.json();
+    if(!out.success) throw new Error(out.message);
+    form.reset();
+    updateForm();
+    note.textContent='Thank you, your message has been sent. I will reply by email.';
+  }catch(err){
+    note.innerHTML='Sorry, the message could not be sent. Please contact me on <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
+  }
+});
+</script>
+</body>
+</html>
