@@ -47,45 +47,35 @@
     <input type="hidden" name="subject" value=""/>
     <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
 
-    <!-- Le due opzioni: i campi qui sotto cambiano in base alla scelta.
+    <!-- Le tre opzioni: i campi qui sotto cambiano in base alla scelta.
          I valori restano in inglese così l'oggetto dell'email è uguale a quello della pagina inglese. -->
     <fieldset class="choice">
       <legend>Cosa ti porta qui?</legend>
       <label><input type="radio" name="topic" value="Let's connect" checked/> Restiamo in contatto</label>
+      <label><input type="radio" name="topic" value="CV request"/> Richiedi il mio CV</label>
       <label><input type="radio" name="topic" value="Hire me"/> Vuoi assumermi?</label>
     </fieldset>
 
     <label>Nome<input type="text" name="name" autocomplete="name" required/></label>
     <label>Email<input type="email" name="email" autocomplete="email" required/></label>
 
+    <!-- "Richiedi il mio CV" (facoltativo) e "Vuoi assumermi?" (obbligatorio) -->
+    <label class="company-field" hidden>Azienda<input type="text" name="company" autocomplete="organization"/></label>
     <!-- Solo per "Vuoi assumermi?" -->
-    <div class="hire-fields" hidden>
-      <label>Azienda<input type="text" name="company" autocomplete="organization"/></label>
-      <label>Ruolo<input type="text" name="role" placeholder="es. BI Analyst, Losanna"/></label>
-    </div>
+    <label class="role-field" hidden>Ruolo<input type="text" name="role" placeholder="es. BI Analyst, Losanna"/></label>
 
     <label>Messaggio<textarea name="message" id="message" required></textarea></label>
-    <label class="check"><input type="checkbox" name="cv_request" value="Yes" id="cvBox"/> Inviami il tuo CV</label>
+    <label class="check cv-extra" hidden><input type="checkbox" name="cv_request" value="Yes"/> Inviami anche il tuo CV</label>
 
     <button type="submit" id="sendBtn">Invia messaggio</button>
     <p class="form-note" id="formNote" role="status"></p>
   </form>
 </section>
 
-<!-- SUPPORTO -->
+<!-- SUPPORTO: un link discreto, senza bottone -->
 <section id="support">
-  <h2>Supporto</h2>
-  <div class="support">
-    <div>
-      <p>Se ti piace il mio blog o hai trovato qualcosa di utile qui, puoi offrirmi un caffè.</p>
-      <a class="button coffee" href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">☕ Offrimi un caffè</a>
-    </div>
-    <!-- QR code: da inquadrare con il telefono (nascosto sugli schermi piccoli, dove basta il bottone) -->
-    <figure class="qr">
-      <img src="../../assets/bmc-qr.png" alt="QR code per la pagina Buy Me a Coffee di Jacopo" width="140" height="140"/>
-      <figcaption>oppure inquadra con il telefono</figcaption>
-    </figure>
-  </div>
+  <h2>Seguimi</h2>
+  <p>Se ti interessa seguire come si sviluppa la mia carriera, o vuoi sostenere un po' di più le mie prossime gare, puoi <a href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">offrirmi un caffè</a>. Grazie!</p>
 </section>
 
 <!-- FOOTER -->
@@ -98,24 +88,35 @@
 // Anno nel footer
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// Form: "Restiamo in contatto" o "Vuoi assumermi?", inviato tramite Web3Forms
+// Form: "Restiamo in contatto", "Richiedi il mio CV" o "Vuoi assumermi?", inviato tramite Web3Forms
 const form=document.getElementById('contactForm');
 const note=document.getElementById('formNote');
-const hireFields=form.querySelector('.hire-fields');
+const texts={
+  "Let's connect":{button:'Invia messaggio',placeholder:''},
+  'CV request':{button:'Richiedi CV',placeholder:'Facoltativo: raccontami in breve il ruolo o perché vorresti il mio CV.'},
+  'Hire me':{button:'Invia proposta',placeholder:'Raccontami del ruolo, del team e dei prossimi passi.'}
+};
 
 // Adatta il form all'opzione scelta
 function updateForm(){
-  const hire=form.elements.topic.value==='Hire me';
-  hireFields.hidden=!hire;
+  const topic=form.elements.topic.value;
+  const cv=topic==='CV request', hire=topic==='Hire me';
+  form.querySelector('.company-field').hidden=!(cv||hire);
+  form.querySelector('.role-field').hidden=!hire;
+  form.querySelector('.cv-extra').hidden=!hire;
   form.elements.company.required=hire;
-  document.getElementById('message').placeholder=hire?'Raccontami del ruolo, del team e dei prossimi passi.':'';
-  document.getElementById('sendBtn').textContent=hire?'Invia proposta':'Invia messaggio';
+  form.elements.message.required=!cv;
+  form.elements.message.placeholder=texts[topic].placeholder;
+  document.getElementById('sendBtn').textContent=texts[topic].button;
 }
 form.querySelectorAll('input[name="topic"]').forEach(r=>r.addEventListener('change',updateForm));
 
-// I link "Richiedi CV" puntano a #cv: spunta la casella del CV
+// I link "Richiedi CV" puntano a #cv: seleziona l'opzione CV
 function checkHash(){
-  if(location.hash==='#cv') document.getElementById('cvBox').checked=true;
+  if(location.hash==='#cv'){
+    form.querySelector('input[value="CV request"]').checked=true;
+    updateForm();
+  }
 }
 window.addEventListener('hashchange',checkHash);
 checkHash();
@@ -128,7 +129,8 @@ form.addEventListener('submit',async function(e){
     return;
   }
   // Oggetto dell'email, es. "Hire me + CV request – jackb998.github.io (IT)"
-  data.set('subject',data.get('topic')+(data.get('cv_request')?' + CV request':'')+' – jackb998.github.io (IT)');
+  const topic=data.get('topic');
+  data.set('subject',topic+(topic==='Hire me'&&data.get('cv_request')?' + CV request':'')+' – jackb998.github.io (IT)');
   note.textContent='Invio in corso...';
   try{
     const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
@@ -136,7 +138,7 @@ form.addEventListener('submit',async function(e){
     if(!out.success) throw new Error(out.message);
     form.reset();
     updateForm();
-    note.textContent='Grazie, il messaggio è stato inviato. Ti risponderò via email.';
+    note.textContent=topic==='CV request'?'Grazie, la richiesta è stata inviata. Ti risponderò via email.':'Grazie, il messaggio è stato inviato. Ti risponderò via email.';
   }catch(err){
     note.innerHTML='Spiacente, non è stato possibile inviare il messaggio. Contattami su <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
   }

@@ -83,6 +83,24 @@ article blockquote{border-left:2px solid var(--rule);padding-left:1rem;color:var
 /* CALLOUT (highlighted note, e.g. support on the Sport page) */
 .callout{margin-top:1.4rem;padding:.9rem 1.1rem;border-left:3px solid var(--accent);background:var(--field);}
 
+/* TIMELINE (sport page): a thin line with one dot per race */
+.timeline{list-style:none;border-left:1px solid var(--rule);margin:0 0 0 .35rem;padding-left:1.5rem;}
+.timeline li{position:relative;padding-bottom:1.7rem;}
+.timeline li:last-child{padding-bottom:0;}
+.timeline li::before{content:"";position:absolute;left:calc(-1.5rem - 5px);top:.5rem;width:9px;height:9px;border-radius:50%;background:var(--accent);}
+.timeline li.next::before{background:var(--bg);border:1.5px solid var(--accent);width:6px;height:6px;}
+.timeline .when{display:block;font-family:var(--sans);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);}
+.timeline h3{margin-top:.1rem;}
+.timeline .result{font-family:var(--sans);font-size:.95rem;margin-top:.2rem;}
+.timeline p{margin-top:.3rem;}
+.timeline p + p{margin-top:.3rem;}
+
+/* STATS (small key figures in a row) */
+.stats{display:flex;flex-wrap:wrap;gap:1rem 2.2rem;margin-top:1.4rem;}
+.stats div{display:flex;flex-direction:column;}
+.stats strong{font-size:1.5rem;font-weight:normal;line-height:1.2;}
+.stats span{font-family:var(--sans);font-size:.8rem;color:var(--muted);}
+
 /* CONTACT */
 .contact{list-style:none;margin-bottom:2rem;}
 .contact li{padding:.25rem 0;}
@@ -94,25 +112,16 @@ article blockquote{border-left:2px solid var(--rule);padding-left:1rem;color:var
 .form button{align-self:flex-start;font-family:var(--sans);font-size:.95rem;background:var(--text);color:var(--bg);border:none;border-radius:3px;padding:.7rem 1.4rem;cursor:pointer;}
 .form button:hover{background:var(--accent);}
 .form-note{font-family:var(--sans);font-size:.8rem;color:var(--muted);}
-.hidden{display:none;}
+.hidden,.form [hidden]{display:none;}
 .form .choice{border:none;display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;}
 .form .choice legend{font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-bottom:.4rem;}
 .form .choice label,.form label.check{flex-direction:row;align-items:center;gap:.5rem;font-family:var(--serif);font-size:1rem;color:var(--text);}
 .form .choice input,.form label.check input{accent-color:var(--accent);width:1.1rem;height:1.1rem;}
-.hire-fields{display:flex;flex-direction:column;gap:.8rem;}
-.hire-fields[hidden]{display:none;}
 
 /* BUTTONS (link that looks like a button) */
 .button{display:inline-block;font-family:var(--sans);font-size:.95rem;text-decoration:none;background:var(--text);color:var(--bg);border-radius:3px;padding:.7rem 1.4rem;margin-top:1rem;}
 .button:hover{background:var(--accent);color:var(--bg);}
-.button.coffee{background:#ffdd00;color:#1d1d1b;}
-.button.coffee:hover{background:#f5cf00;color:#1d1d1b;}
 
-/* SUPPORT (text + button on the left, QR code on the right) */
-.support{display:flex;gap:2rem;align-items:center;justify-content:space-between;}
-.qr{text-align:center;flex-shrink:0;}
-.qr img{display:block;background:#fff;padding:6px;border-radius:6px;}
-.qr figcaption{font-family:var(--sans);font-size:.75rem;color:var(--muted);margin-top:.4rem;}
 
 footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.8rem;color:var(--muted);}
 
@@ -125,7 +134,6 @@ footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-fa
   dl.skills dd{margin-bottom:.7rem;}
   .posts li{flex-direction:column;gap:0;}
   .form button{align-self:stretch;}
-  .qr{display:none;}
   .contact li{padding:.4rem 0;}
   .contact span{display:block;}
   .form .choice{flex-direction:column;}

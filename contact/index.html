@@ -39,7 +39,8 @@
   </ul>
 </section>
 
-<!-- CONTACT FORM: paste the Web3Forms access key in value="" below to receive messages by email. -->
+<!-- CONTACT FORM: paste the Web3Forms access key in value="" below to receive messages by email
+     (same key in it/contact/index.html). -->
 <section id="cv">
   <h2>Write to me</h2>
   <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
@@ -47,44 +48,34 @@
     <input type="hidden" name="subject" value=""/>
     <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
 
-    <!-- The two options: the fields below change with the choice -->
+    <!-- The three options: the fields below change with the choice -->
     <fieldset class="choice">
       <legend>What brings you here?</legend>
       <label><input type="radio" name="topic" value="Let's connect" checked/> Let's connect</label>
+      <label><input type="radio" name="topic" value="CV request"/> Request my CV</label>
       <label><input type="radio" name="topic" value="Hire me"/> Do you want to hire me?</label>
     </fieldset>
 
     <label>Name<input type="text" name="name" autocomplete="name" required/></label>
     <label>Email<input type="email" name="email" autocomplete="email" required/></label>
 
+    <!-- "Request my CV" (optional) and "Hire me" (required) -->
+    <label class="company-field" hidden>Company<input type="text" name="company" autocomplete="organization"/></label>
     <!-- Only for "Hire me" -->
-    <div class="hire-fields" hidden>
-      <label>Company<input type="text" name="company" autocomplete="organization"/></label>
-      <label>Role<input type="text" name="role" placeholder="e.g. BI Analyst, Lausanne"/></label>
-    </div>
+    <label class="role-field" hidden>Role<input type="text" name="role" placeholder="e.g. BI Analyst, Lausanne"/></label>
 
     <label>Message<textarea name="message" id="message" required></textarea></label>
-    <label class="check"><input type="checkbox" name="cv_request" value="Yes" id="cvBox"/> Please send me your CV</label>
+    <label class="check cv-extra" hidden><input type="checkbox" name="cv_request" value="Yes"/> Please send me your CV too</label>
 
     <button type="submit" id="sendBtn">Send message</button>
     <p class="form-note" id="formNote" role="status"></p>
   </form>
 </section>
 
-<!-- SUPPORT -->
+<!-- SUPPORT: a discreet link, no big button -->
 <section id="support">
-  <h2>Support</h2>
-  <div class="support">
-    <div>
-      <p>If you enjoy my blog or found something here useful, you can buy me a coffee.</p>
-      <a class="button coffee" href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">☕ Buy me a coffee</a>
-    </div>
-    <!-- QR code: scan with a phone (hidden on small screens, where the button is enough) -->
-    <figure class="qr">
-      <img src="../assets/bmc-qr.png" alt="QR code to Jacopo's Buy Me a Coffee page" width="140" height="140"/>
-      <figcaption>or scan with your phone</figcaption>
-    </figure>
-  </div>
+  <h2>Follow along</h2>
+  <p>If you're interested in how my career develops, or would like to support my next races a little more, you can <a href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">buy me a coffee</a>. Thank you!</p>
 </section>
 
 <!-- FOOTER -->
@@ -97,24 +88,35 @@
 // Footer year
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// Contact form: "Let's connect" or "Hire me", sent through Web3Forms
+// Contact form: "Let's connect", "CV request" or "Hire me", sent through Web3Forms
 const form=document.getElementById('contactForm');
 const note=document.getElementById('formNote');
-const hireFields=form.querySelector('.hire-fields');
+const texts={
+  "Let's connect":{button:'Send message',placeholder:''},
+  'CV request':{button:'Request CV',placeholder:'Optional: tell me briefly about the role or why you would like my CV.'},
+  'Hire me':{button:'Send opportunity',placeholder:'Tell me about the role, the team and the next steps.'}
+};
 
 // Adapt the form to the chosen option
 function updateForm(){
-  const hire=form.elements.topic.value==='Hire me';
-  hireFields.hidden=!hire;
+  const topic=form.elements.topic.value;
+  const cv=topic==='CV request', hire=topic==='Hire me';
+  form.querySelector('.company-field').hidden=!(cv||hire);
+  form.querySelector('.role-field').hidden=!hire;
+  form.querySelector('.cv-extra').hidden=!hire;
   form.elements.company.required=hire;
-  document.getElementById('message').placeholder=hire?'Tell me about the role, the team and the next steps.':'';
-  document.getElementById('sendBtn').textContent=hire?'Send opportunity':'Send message';
+  form.elements.message.required=!cv;
+  form.elements.message.placeholder=texts[topic].placeholder;
+  document.getElementById('sendBtn').textContent=texts[topic].button;
 }
 form.querySelectorAll('input[name="topic"]').forEach(r=>r.addEventListener('change',updateForm));
 
-// "Request CV" links point to #cv: tick the CV box
+// "Request CV" links point to #cv: select the CV option
 function checkHash(){
-  if(location.hash==='#cv') document.getElementById('cvBox').checked=true;
+  if(location.hash==='#cv'){
+    form.querySelector('input[value="CV request"]').checked=true;
+    updateForm();
+  }
 }
 window.addEventListener('hashchange',checkHash);
 checkHash();
@@ -127,7 +129,8 @@ form.addEventListener('submit',async function(e){
     return;
   }
   // Email subject, e.g. "Hire me + CV request – jackb998.github.io"
-  data.set('subject',data.get('topic')+(data.get('cv_request')?' + CV request':'')+' – jackb998.github.io');
+  const topic=data.get('topic');
+  data.set('subject',topic+(topic==='Hire me'&&data.get('cv_request')?' + CV request':'')+' – jackb998.github.io');
   note.textContent='Sending...';
   try{
     const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
@@ -135,7 +138,7 @@ form.addEventListener('submit',async function(e){
     if(!out.success) throw new Error(out.message);
     form.reset();
     updateForm();
-    note.textContent='Thank you, your message has been sent. I will reply by email.';
+    note.textContent=topic==='CV request'?'Thank you, your request has been sent. I will reply by email.':'Thank you, your message has been sent. I will reply by email.';
   }catch(err){
     note.innerHTML='Sorry, the message could not be sent. Please contact me on <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
   }
