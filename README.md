@@ -18,7 +18,7 @@ The site presents my experience in BI, reporting and FP&A, a personal blog, my e
 
 ## Built with
 
-Plain **HTML and CSS**, a few lines of vanilla JavaScript. No frameworks, no build step, no tracking.
+Plain **HTML and CSS**, a few lines of vanilla JavaScript. No frameworks, no build step. The only third-party script is the Buy Me a Coffee button on the contact page.
 
 - Hosted for free on **GitHub Pages** (branch `main`, root folder)
 - Classic editorial design with automatic dark mode

@@ -95,6 +95,9 @@ article blockquote{border-left:2px solid var(--rule);padding-left:1rem;color:var
 .timeline p{margin-top:.3rem;}
 .timeline p + p{margin-top:.3rem;}
 
+/* MOTTO (short quote at the top of the sport story) */
+.motto{font-style:italic;font-size:1.25rem;line-height:1.4;margin-bottom:1.2rem;}
+
 /* STATS (small key figures in a row) */
 .stats{display:flex;flex-wrap:wrap;gap:1rem 2.2rem;margin-top:1.4rem;}
 .stats div{display:flex;flex-direction:column;}
