@@ -101,6 +101,12 @@ article blockquote{border-left:2px solid var(--rule);padding-left:1rem;color:var
 .button.coffee{background:#ffdd00;color:#1d1d1b;}
 .button.coffee:hover{background:#f5cf00;color:#1d1d1b;}
 
+/* SUPPORT (text + button on the left, QR code on the right) */
+.support{display:flex;gap:2rem;align-items:center;justify-content:space-between;}
+.qr{text-align:center;flex-shrink:0;}
+.qr img{display:block;background:#fff;padding:6px;border-radius:6px;}
+.qr figcaption{font-family:var(--sans);font-size:.75rem;color:var(--muted);margin-top:.4rem;}
+
 footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.8rem;color:var(--muted);}
 
 /* PHONE */
@@ -112,4 +118,5 @@ footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-fa
   dl.skills dd{margin-bottom:.7rem;}
   .posts li{flex-direction:column;gap:0;}
   .form button{align-self:stretch;}
+  .qr{display:none;}
 }
