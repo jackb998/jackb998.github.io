@@ -10,88 +10,7 @@
 <meta property="og:url" content="https://jackb998.github.io/"/>
 <meta property="og:title" content="Jacopo Beghetto – Data & BI Analyst"/>
 <meta property="og:description" content="Automated Power BI and Excel reporting for finance and operations. Lausanne, Switzerland."/>
-<style>
-  /* COLOURS: change them here */
-  :root {
-    --bg: #fbf9f4;       /* paper */
-    --text: #1d1d1b;     /* ink */
-    --muted: #5f5d57;    /* dates, secondary text */
-    --rule: #dcd8ce;     /* thin lines */
-    --accent: #8c2f1f;   /* links */
-    --serif: "Iowan Old Style", "Charter", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
-  }
-  /* Dark version, used automatically if the visitor's device is in dark mode */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1b1a17;
-      --text: #e9e5dc;
-      --muted: #a39e93;
-      --rule: #3a3833;
-      --accent: #e0957f;
-    }
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:1.125rem;line-height:1.65;}
-  .page{max-width:680px;margin:0 auto;padding:3.5rem 1.25rem 2rem;}
-
-  a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
-  a:hover{text-decoration-thickness:2px;}
-  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
-  strong{font-weight:600;}
-
-  /* HEADER */
-  header h1{font-size:2.4rem;font-weight:normal;line-height:1.15;letter-spacing:-.01em;}
-  .subtitle{color:var(--muted);font-style:italic;margin-top:.3rem;}
-  .status{font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-top:.8rem;}
-  nav{margin-top:1.6rem;padding:.7rem 0;border-top:1px solid var(--text);border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:.9rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;}
-  nav a{color:var(--text);text-decoration:none;padding:.2rem 0;}
-  nav a:hover{color:var(--accent);}
-
-  /* SECTIONS */
-  section{margin-top:3rem;}
-  h2{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:.4rem;margin-bottom:1.2rem;}
-  h3{font-size:1.15rem;font-weight:600;}
-  p + p{margin-top:1rem;}
-
-  /* ENTRIES (experience, education, projects) */
-  .entry{margin-bottom:1.8rem;}
-  .entry-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;}
-  .date{font-family:var(--sans);font-size:.85rem;color:var(--muted);white-space:nowrap;}
-  .where{color:var(--muted);font-style:italic;}
-  .entry ul{margin:.5rem 0 0 1.2rem;}
-  .entry li{margin-bottom:.3rem;}
-  .entry p{margin-top:.3rem;}
-
-  /* SKILLS */
-  dl.skills{display:grid;grid-template-columns:11rem 1fr;gap:.5rem 1.2rem;}
-  dl.skills dt{font-weight:600;}
-  dl.skills dd{color:var(--text);}
-
-  /* BLOG LIST */
-  .posts{list-style:none;}
-  .posts li{display:flex;gap:1.2rem;padding:.5rem 0;border-bottom:1px dotted var(--rule);}
-  .posts .date{min-width:6.5rem;padding-top:.15rem;}
-
-  /* CONTACT */
-  .contact{list-style:none;}
-  .contact li{padding:.25rem 0;}
-  .contact span{display:inline-block;min-width:6rem;color:var(--muted);font-family:var(--sans);font-size:.85rem;}
-
-  footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.8rem;color:var(--muted);}
-
-  /* PHONE */
-  @media (max-width:600px){
-    body{font-size:1.05rem;}
-    .page{padding-top:2.2rem;}
-    header h1{font-size:2rem;}
-    dl.skills{grid-template-columns:1fr;gap:.1rem;}
-    dl.skills dd{margin-bottom:.7rem;}
-    .posts li{flex-direction:column;gap:0;}
-  }
-</style>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 <div class="page">
@@ -106,7 +25,7 @@
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
-    <a href="#blog">Blog</a>
+    <a href="blog/">Blog</a>
     <a href="#contact">Contact</a>
     <a href="./JACOPO%20BEGHETTO%20CV.pdf" download>CV (PDF)</a>
   </nav>
@@ -224,14 +143,6 @@
   </dl>
 </section>
 
-<!-- BLOG: new posts go at the top of the list -->
-<section id="blog">
-  <h2>Blog</h2>
-  <ul class="posts">
-    <li><span class="date">Coming soon</span><span>First posts on reporting, data and endurance sports.</span></li>
-  </ul>
-</section>
-
 <!-- CONTACT -->
 <section id="contact">
   <h2>Contact</h2>
@@ -242,6 +153,19 @@
     <li><span>Phone</span><a href="#">[phone removed]</a></li>
     <li><span>CV</span><a href="./JACOPO%20BEGHETTO%20CV.pdf" download>Download PDF</a></li>
   </ul>
+
+  <!-- CONTACT FORM: paste the Web3Forms access key in value="" below to receive messages by email.
+       While it is empty, the form opens the visitor's email app instead. -->
+  <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value=""/>
+    <input type="hidden" name="subject" value="New message from jackb998.github.io"/>
+    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
+    <label>Name<input type="text" name="name" autocomplete="name" required/></label>
+    <label>Email<input type="email" name="email" autocomplete="email" required/></label>
+    <label>Message<textarea name="message" required></textarea></label>
+    <button type="submit">Send message</button>
+    <p class="form-note" id="formNote" role="status"></p>
+  </form>
 </section>
 
 <!-- FOOTER -->
@@ -253,6 +177,29 @@
 <script>
 // Footer year
 document.getElementById('year').textContent=new Date().getFullYear();
+
+// Contact form: sends through Web3Forms if the access key is set, otherwise opens the email app
+const form=document.getElementById('contactForm');
+const note=document.getElementById('formNote');
+form.addEventListener('submit',async function(e){
+  e.preventDefault();
+  const data=new FormData(form);
+  if(!data.get('access_key')){
+    const body=`${data.get('message')}\n\n${data.get('name')} (${data.get('email')})`;
+    window.location.href=`#?subject=${encodeURIComponent('Website contact')}&body=${encodeURIComponent(body)}`;
+    return;
+  }
+  note.textContent='Sending...';
+  try{
+    const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
+    const out=await res.json();
+    if(!out.success) throw new Error(out.message);
+    form.reset();
+    note.textContent='Thank you, your message has been sent.';
+  }catch(err){
+    note.innerHTML='Sorry, the message could not be sent. Please write to <a href="#">[email removed]</a>.';
+  }
+});
 </script>
 </body>
 </html>

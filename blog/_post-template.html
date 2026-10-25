@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE FOR A NEW POST (this file is not published: names starting with _ are ignored by GitHub Pages)
+  1. Copy this file into the blog folder, e.g. 2026-10-12-post-title.html (date + title, no spaces)
+  2. Change the 5 places marked TITLE / DATE / SUMMARY and write the text inside <article>
+  3. Add a line for the post at the top of the list in blog/index.html
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TITLE – Jacopo Beghetto</title>
+<meta name="description" content="SUMMARY"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="TITLE"/>
+<meta property="og:description" content="SUMMARY"/>
+<link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <h1><a href="../">Jacopo Beghetto</a></h1>
+  <nav>
+    <a href="../">Home</a>
+    <a href="./">Blog</a>
+    <a href="../#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- POST -->
+<article>
+  <h1>TITLE</h1>
+  <span class="date">DATE (e.g. 12 Oct 2026)</span>
+
+  <p>First paragraph.</p>
+  <p>Second paragraph. A <a href="https://example.com">link</a> looks like this.</p>
+
+  <h2>A subheading</h2>
+  <p>More text.</p>
+  <ul>
+    <li>A bullet point</li>
+  </ul>
+  <blockquote>A quote.</blockquote>
+
+  <a class="back" href="./">← All posts</a>
+</article>
+
+<!-- FOOTER -->
+<footer>
+  © <span id="year">2026</span> Jacopo Beghetto · Lausanne, Switzerland
+</footer>
+
+</div>
+<script>
+// Footer year
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
