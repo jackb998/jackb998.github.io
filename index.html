@@ -27,7 +27,7 @@
     <a href="#skills">Skills</a>
     <a href="blog/">Blog</a>
     <a href="#contact">Contact</a>
-    <a href="./JACOPO%20BEGHETTO%20CV.pdf" download>CV (PDF)</a>
+    <a href="#cv">Request CV</a>
   </nav>
 </header>
 
@@ -146,24 +146,30 @@
 <!-- CONTACT -->
 <section id="contact">
   <h2>Contact</h2>
-  <ul class="contact">
-    <li><span>Email</span><a href="#">[email removed]</a></li>
+  <p>The quickest way to reach me is the form below, or LinkedIn. To receive my CV, choose "Request my CV": I'll send it to you by email.</p>
+  <ul class="contact" style="margin-top:1rem;">
     <li><span>LinkedIn</span><a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">linkedin.com/in/jacopo-beghetto</a></li>
     <li><span>GitHub</span><a href="https://github.com/jackb998" target="_blank" rel="noopener">github.com/jackb998</a></li>
-    <li><span>Phone</span><a href="#">[phone removed]</a></li>
-    <li><span>CV</span><a href="./JACOPO%20BEGHETTO%20CV.pdf" download>Download PDF</a></li>
   </ul>
 
   <!-- CONTACT FORM: paste the Web3Forms access key in value="" below to receive messages by email.
-       While it is empty, the form opens the visitor's email app instead. -->
+       Messages and CV requests arrive in the inbox linked to that key. -->
+  <div id="cv"></div>
   <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
     <input type="hidden" name="access_key" value=""/>
     <input type="hidden" name="subject" value="New message from jackb998.github.io"/>
     <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
+    <label>I'd like to
+      <select name="topic" id="topic">
+        <option value="Message">Send a message</option>
+        <option value="CV request">Request my CV</option>
+      </select>
+    </label>
     <label>Name<input type="text" name="name" autocomplete="name" required/></label>
     <label>Email<input type="email" name="email" autocomplete="email" required/></label>
-    <label>Message<textarea name="message" required></textarea></label>
-    <button type="submit">Send message</button>
+    <label>Company (optional)<input type="text" name="company" autocomplete="organization"/></label>
+    <label>Message<textarea name="message" id="message" required></textarea></label>
+    <button type="submit" id="sendBtn">Send message</button>
     <p class="form-note" id="formNote" role="status"></p>
   </form>
 </section>
@@ -178,15 +184,35 @@
 // Footer year
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// Contact form: sends through Web3Forms if the access key is set, otherwise opens the email app
+// Contact form: "Message" or "CV request", sent through Web3Forms
 const form=document.getElementById('contactForm');
 const note=document.getElementById('formNote');
+const topic=document.getElementById('topic');
+
+// Adapt the form to the chosen option
+function updateForm(){
+  const cv=topic.value==='CV request';
+  document.getElementById('sendBtn').textContent=cv?'Request CV':'Send message';
+  document.getElementById('message').placeholder=cv?'Tell me briefly about the role or why you would like my CV.':'';
+  form.elements.subject.value=cv?'CV request from jackb998.github.io':'New message from jackb998.github.io';
+}
+topic.addEventListener('change',updateForm);
+
+// "Request CV" links point to #cv: preselect the option (the browser jumps to the form)
+function checkHash(){
+  if(location.hash==='#cv'){
+    topic.value='CV request';
+    updateForm();
+  }
+}
+window.addEventListener('hashchange',checkHash);
+checkHash();
+
 form.addEventListener('submit',async function(e){
   e.preventDefault();
   const data=new FormData(form);
   if(!data.get('access_key')){
-    const body=`${data.get('message')}\n\n${data.get('name')} (${data.get('email')})`;
-    window.location.href=`#?subject=${encodeURIComponent('Website contact')}&body=${encodeURIComponent(body)}`;
+    note.innerHTML='The form is not active yet. Please contact me on <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
     return;
   }
   note.textContent='Sending...';
@@ -194,10 +220,12 @@ form.addEventListener('submit',async function(e){
     const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
     const out=await res.json();
     if(!out.success) throw new Error(out.message);
+    const cv=data.get('topic')==='CV request';
     form.reset();
-    note.textContent='Thank you, your message has been sent.';
+    updateForm();
+    note.textContent=cv?'Thank you, your request has been sent. I will reply by email.':'Thank you, your message has been sent.';
   }catch(err){
-    note.innerHTML='Sorry, the message could not be sent. Please write to <a href="#">[email removed]</a>.';
+    note.innerHTML='Sorry, the message could not be sent. Please contact me on <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
   }
 });
 </script>
