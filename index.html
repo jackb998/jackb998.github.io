@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -11,574 +10,249 @@
 <meta property="og:url" content="https://jackb998.github.io/"/>
 <meta property="og:title" content="Jacopo Beghetto – Data & BI Analyst"/>
 <meta property="og:description" content="Automated Power BI and Excel reporting for finance and operations. Lausanne, Switzerland."/>
-<meta property="og:image" content="https://jackb998.github.io/assets/photo.jpg"/>
-<meta name="theme-color" content="#0a0a0f"/>
 <style>
+  /* COLOURS: change them here */
   :root {
-    --bg: #0a0a0f;
-    --bg2: #111118;
-    --card: #16161f;
-    --border: #2a2a3a;
-    --accent1: #6c63ff;
-    --accent2: #00d4ff;
-    --accent3: #ff6b9d;
-    --text: #e8e8f0;
-    --muted: #8888aa;
-    --grad: linear-gradient(135deg, #6c63ff, #00d4ff);
+    --bg: #fbf9f4;       /* paper */
+    --text: #1d1d1b;     /* ink */
+    --muted: #5f5d57;    /* dates, secondary text */
+    --rule: #dcd8ce;     /* thin lines */
+    --accent: #8c2f1f;   /* links */
+    --serif: "Iowan Old Style", "Charter", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
   }
+  /* Dark version, used automatically if the visitor's device is in dark mode */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1a17;
+      --text: #e9e5dc;
+      --muted: #a39e93;
+      --rule: #3a3833;
+      --accent: #e0957f;
+    }
+  }
+
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;}
+  body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:1.125rem;line-height:1.65;}
+  .page{max-width:680px;margin:0 auto;padding:3.5rem 1.25rem 2rem;}
 
-/* SCROLLBAR */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--accent1);border-radius:3px;}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
+  a:hover{text-decoration-thickness:2px;}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  strong{font-weight:600;}
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(20px);background:rgba(10,10,15,0.85);border-bottom:1px solid var(--border);padding:0 5%;}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
-.nav-logo{font-weight:700;font-size:1.1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s;}
-.nav-links a:hover{color:var(--text);}
-.nav-cta{background:var(--grad);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;font-size:.85rem;cursor:pointer;text-decoration:none;font-weight:600;transition:opacity .2s;}
-.nav-cta:hover{opacity:.85;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:.3s;}
-.mobile-menu{display:none;position:fixed;top:64px;left:0;width:100%;background:var(--bg2);border-bottom:1px solid var(--border);z-index:99;flex-direction:column;padding:1.5rem 5%;}
-.mobile-menu a{color:var(--muted);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:1rem;}
-.mobile-menu a:last-child{border:none;}
-.mobile-menu.open{display:flex;}
+  /* HEADER */
+  header h1{font-size:2.4rem;font-weight:normal;line-height:1.15;letter-spacing:-.01em;}
+  .subtitle{color:var(--muted);font-style:italic;margin-top:.3rem;}
+  .status{font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-top:.8rem;}
+  nav{margin-top:1.6rem;padding:.7rem 0;border-top:1px solid var(--text);border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:.9rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;}
+  nav a{color:var(--text);text-decoration:none;padding:.2rem 0;}
+  nav a:hover{color:var(--accent);}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:80px 5% 0;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(108,99,255,.15),transparent 70%);pointer-events:none;}
-.hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,212,255,.1),transparent 70%);pointer-events:none;}
-.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center;width:100%;}
-.hero-tag{display:inline-block;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.3);color:var(--accent1);padding:.3rem .9rem;border-radius:20px;font-size:.8rem;font-weight:600;margin-bottom:1.2rem;letter-spacing:.05em;}
-.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
-.hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{color:var(--muted);font-size:1.1rem;line-height:1.7;max-width:520px;margin-bottom:2rem;}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-.btn-primary{background:var(--grad);color:#fff;padding:.8rem 1.8rem;border-radius:10px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s,transform .2s;}
-.btn-primary:hover{opacity:.85;transform:translateY(-2px);}
-.btn-outline{border:1px solid var(--border);color:var(--text);padding:.8rem 1.8rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:.95rem;transition:border-color .2s,transform .2s;}
-.btn-outline:hover{border-color:var(--accent1);transform:translateY(-2px);}
-.hero-avatar{width:220px;height:220px;border-radius:24px;object-fit:cover;border:2px solid var(--border);box-shadow:0 0 60px rgba(108,99,255,.2);}
-.hero-avatar-wrap{position:relative;}
-.hero-avatar-wrap::before{content:'';position:absolute;inset:-3px;border-radius:26px;background:var(--grad);z-index:-1;}
-.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;flex-wrap:wrap;}
-.stat{text-align:center;}
-.stat-n{font-size:1.8rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-l{font-size:.75rem;color:var(--muted);letter-spacing:.05em;}
+  /* SECTIONS */
+  section{margin-top:3rem;}
+  h2{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:.4rem;margin-bottom:1.2rem;}
+  h3{font-size:1.15rem;font-weight:600;}
+  p + p{margin-top:1rem;}
 
-/* SECTIONS */
-section{padding:5rem 5%;}
-.section-inner{max-width:1100px;margin:0 auto;}
-.section-tag{font-size:.8rem;font-weight:700;color:var(--accent1);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
-.section-title{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin-bottom:1rem;}
-.section-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.section-sub{color:var(--muted);max-width:500px;line-height:1.7;margin-bottom:3rem;}
-.divider{width:60px;height:3px;background:var(--grad);border-radius:3px;margin-bottom:3rem;}
+  /* ENTRIES (experience, education, projects) */
+  .entry{margin-bottom:1.8rem;}
+  .entry-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;}
+  .date{font-family:var(--sans);font-size:.85rem;color:var(--muted);white-space:nowrap;}
+  .where{color:var(--muted);font-style:italic;}
+  .entry ul{margin:.5rem 0 0 1.2rem;}
+  .entry li{margin-bottom:.3rem;}
+  .entry p{margin-top:.3rem;}
 
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
-.about-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem;}
-.about-text p strong{color:var(--text);}
-.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.5rem;}
-.lang-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;display:flex;justify-content:space-between;align-items:center;}
-.lang-name{font-size:.9rem;font-weight:600;}
-.lang-level{font-size:.75rem;color:var(--accent2);font-weight:600;}
-.info-grid{display:flex;flex-direction:column;gap:.8rem;}
-.info-item{display:flex;align-items:center;gap:.8rem;color:var(--muted);font-size:.9rem;}
-.info-item .icon{width:36px;height:36px;border-radius:8px;background:rgba(108,99,255,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  /* SKILLS */
+  dl.skills{display:grid;grid-template-columns:11rem 1fr;gap:.5rem 1.2rem;}
+  dl.skills dt{font-weight:600;}
+  dl.skills dd{color:var(--text);}
 
-/* SKILLS */
-.skills-bg{background:var(--bg2);}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
-.skill-cat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;}
-.skill-cat-title{font-size:.85rem;font-weight:700;color:var(--accent1);letter-spacing:.05em;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
-.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
-.tag{background:rgba(108,99,255,.1);border:1px solid rgba(108,99,255,.2);color:var(--text);padding:.3rem .8rem;border-radius:20px;font-size:.78rem;font-weight:500;}
-.tag.blue{background:rgba(0,212,255,.08);border-color:rgba(0,212,255,.2);}
-.tag.pink{background:rgba(255,107,157,.08);border-color:rgba(255,107,157,.2);}
-.tag.green{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.2);}
+  /* BLOG LIST */
+  .posts{list-style:none;}
+  .posts li{display:flex;gap:1.2rem;padding:.5rem 0;border-bottom:1px dotted var(--rule);}
+  .posts .date{min-width:6.5rem;padding-top:.15rem;}
 
-/* EXPERIENCE */
-.timeline{position:relative;padding-left:2rem;}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--accent1),var(--accent2));}
-.tl-item{position:relative;margin-bottom:2.5rem;}
-.tl-dot{position:absolute;left:-2.4rem;top:.3rem;width:14px;height:14px;border-radius:50%;background:var(--grad);border:2px solid var(--bg);box-shadow:0 0 10px rgba(108,99,255,.5);}
-.tl-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .2s;}
-.tl-card:hover{border-color:var(--accent1);}
-.tl-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:.3rem;}
-.tl-role{font-size:1.05rem;font-weight:700;}
-.tl-date{font-size:.78rem;background:rgba(108,99,255,.15);color:var(--accent1);padding:.2rem .7rem;border-radius:20px;white-space:nowrap;font-weight:600;}
-.tl-company{color:var(--accent2);font-size:.9rem;font-weight:600;margin-bottom:.8rem;}
-.tl-loc{color:var(--muted);font-size:.8rem;margin-left:.5rem;}
-.tl-desc{color:var(--muted);font-size:.88rem;line-height:1.7;}
-.tl-bullets{margin-top:.7rem;padding-left:1rem;color:var(--muted);font-size:.85rem;line-height:1.8;}
-.tl-bullets li{margin-bottom:.2rem;}
-.tl-bullets li strong{color:var(--text);}
+  /* CONTACT */
+  .contact{list-style:none;}
+  .contact li{padding:.25rem 0;}
+  .contact span{display:inline-block;min-width:6rem;color:var(--muted);font-family:var(--sans);font-size:.85rem;}
 
-/* PROJECTS */
-.projects-bg{background:var(--bg2);}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
-.proj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:transform .2s,border-color .2s;display:flex;flex-direction:column;}
-.proj-card:hover{transform:translateY(-4px);border-color:var(--accent1);}
-.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
-.proj-icon{font-size:2rem;}
-.proj-badge{font-size:.72rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;}
-.proj-badge.work{background:rgba(108,99,255,.15);color:var(--accent1);border:1px solid rgba(108,99,255,.2);}
-.proj-badge.academic{background:rgba(0,212,255,.1);color:var(--accent2);border:1px solid rgba(0,212,255,.2);}
-.proj-badge.award{background:rgba(255,215,0,.1);color:#ffd700;border:1px solid rgba(255,215,0,.2);}
-.proj-title{font-size:1rem;font-weight:700;margin-bottom:.5rem;}
-.proj-desc{color:var(--muted);font-size:.85rem;line-height:1.6;flex:1;}
-.proj-footer{margin-top:1rem;display:flex;gap:.4rem;flex-wrap:wrap;}
+  footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.8rem;color:var(--muted);}
 
-/* EDUCATION */
-.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-.edu-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;}
-.edu-year{font-size:.78rem;font-weight:700;color:var(--accent1);margin-bottom:.4rem;}
-.edu-degree{font-weight:700;font-size:1rem;margin-bottom:.2rem;}
-.edu-uni{color:var(--accent2);font-size:.88rem;margin-bottom:.4rem;}
-.edu-thesis{color:var(--muted);font-size:.82rem;font-style:italic;}
-
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
-.contact-info{display:flex;flex-direction:column;gap:1rem;}
-.contact-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s;}
-.contact-card:hover{border-color:var(--accent1);transform:translateX(4px);}
-.contact-icon{width:42px;height:42px;border-radius:10px;background:rgba(108,99,255,.12);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.contact-label{font-size:.75rem;color:var(--muted);margin-bottom:.1rem;}
-.contact-val{font-size:.9rem;font-weight:600;}
-.form{display:flex;flex-direction:column;gap:1rem;}
-.form input,.form textarea{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s;}
-.form input:focus,.form textarea:focus{border-color:var(--accent1);}
-.form textarea{resize:vertical;min-height:120px;}
-.form input::placeholder,.form textarea::placeholder{color:var(--muted);}
-.form-note{font-size:.75rem;color:var(--muted);}
-
-/* FOOTER */
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 5%;text-align:center;}
-.footer-inner{max-width:1100px;margin:0 auto;}
-.footer-socials{display:flex;justify-content:center;gap:1rem;margin-bottom:1rem;}
-.social-btn{width:40px;height:40px;border-radius:10px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);transition:color .2s,border-color .2s;}
-.social-btn:hover{color:var(--accent1);border-color:var(--accent1);}
-.footer-text{color:var(--muted);font-size:.82rem;}
-
-/* ACCESSIBILITY: visible keyboard focus, active nav link */
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent2);outline-offset:3px;}
-.nav-links a.active{color:var(--text);}
-.hero-tag.open{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.3);color:#00ff88;}
-.hero-tag{margin-right:.4rem;}
-
-/* ANIMATIONS */
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease;}
-.fade-in.visible{opacity:1;transform:none;}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-.hero-inner{grid-template-columns:1fr;}
-.hero-avatar-wrap{display:none;}
-.about-grid,.contact-grid,.edu-grid{grid-template-columns:1fr;}
-.nav-links,.nav-cta{display:none;}
-.hamburger{display:flex;}
-.hero-stats{gap:1.5rem;}
-.lang-grid{grid-template-columns:1fr;}
-.projects-grid,.skills-grid{grid-template-columns:1fr;}
-.hamburger{padding:10px;}
-.mobile-menu a{padding:.9rem 0;}
-}
-@media(prefers-reduced-motion:reduce){
-html{scroll-behavior:auto;}
-.fade-in{opacity:1;transform:none;transition:none;}
-}
+  /* PHONE */
+  @media (max-width:600px){
+    body{font-size:1.05rem;}
+    .page{padding-top:2.2rem;}
+    header h1{font-size:2rem;}
+    dl.skills{grid-template-columns:1fr;gap:.1rem;}
+    dl.skills dd{margin-bottom:.7rem;}
+    .posts li{flex-direction:column;gap:0;}
+  }
 </style>
-
 </head>
 <body>
+<div class="page">
 
-<!-- NAV -->
-
-<nav>
-  <div class="nav-inner">
-    <span class="nav-logo">JB.</span>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a class="nav-cta" href="./JACOPO%20BEGHETTO%20CV.pdf" download>Download CV</a>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="toggleMenu()">About</a>
-  <a href="#skills" onclick="toggleMenu()">Skills</a>
-  <a href="#experience" onclick="toggleMenu()">Experience</a>
-  <a href="#projects" onclick="toggleMenu()">Projects</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-  <a href="./JACOPO%20BEGHETTO%20CV.pdf" download style="color:var(--accent1);font-weight:700;">⬇ Download CV</a>
-</div>
-
-<!-- HERO -->
-
-<section class="hero" id="hero">
-  <div class="hero-inner">
-    <div class="hero-content fade-in">
-      <span class="hero-tag">📍 Lausanne, Switzerland</span><span class="hero-tag open">● Open to new opportunities</span>
-      <h1>Jacopo<br/><span>Beghetto</span></h1>
-      <p class="hero-sub">Data & BI Analyst with a finance background. I build automated Power BI and Excel reporting for finance and operational stakeholders, turning business requirements into working analytical tools.</p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">Get in touch</a>
-        <a href="./JACOPO%20BEGHETTO%20CV.pdf" download class="btn-outline">⬇ Download CV</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="stat-n">3</div><div class="stat-l">YEARS EXP</div></div>
-        <div class="stat"><div class="stat-n">3</div><div class="stat-l">COMPANIES</div></div>
-        <div class="stat"><div class="stat-n">30+</div><div class="stat-l">STAKEHOLDERS</div></div>
-        <div class="stat"><div class="stat-n">1B+</div><div class="stat-l">EUR REVENUE ENV</div></div>
-      </div>
-    </div>
-    <div class="hero-avatar-wrap fade-in">
-      <img class="hero-avatar" src="assets/photo.jpg" alt="Portrait of Jacopo Beghetto" width="220" height="220"/>
-    </div>
-  </div>
-</section>
+<!-- HEADER -->
+<header>
+  <h1>Jacopo Beghetto</h1>
+  <p class="subtitle">Data &amp; BI Analyst · Lausanne, Switzerland</p>
+  <p class="status">Open to new opportunities in BI, Data Analytics and FP&amp;A · available immediately</p>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="./JACOPO%20BEGHETTO%20CV.pdf" download>CV (PDF)</a>
+  </nav>
+</header>
 
 <!-- ABOUT -->
-
 <section id="about">
-  <div class="section-inner">
-    <p class="section-tag">About me</p>
-    <h2 class="section-title">Who I <span>Am</span></h2>
-    <div class="divider"></div>
-    <div class="about-grid fade-in">
-      <div class="about-text">
-        <p>I'm a <strong>Data & BI Analyst</strong> with a Master's in Business Analytics from HEC Lausanne and 3 years across FP&A, business reporting and quality analytics in multinational environments.</p>
-        <p>Most recently at <strong>ALLSEAS Group SA</strong>, a global offshore engineering group, I built automated Power BI and Excel reporting for the CFO, Treasury and Cost Controllers, including an impairment model covering contracts from EUR 10M to 100M+. I'm now <strong>available immediately</strong> for BI and Data Analyst roles.</p>
-        <p>Beyond work, I'm into <strong>emerging technologies</strong>, sports analytics and endurance sports: I finished my first Ironman 70.3 in 2026.</p>
-        <h4 style="margin-top:1.5rem;margin-bottom:.8rem;font-size:.85rem;color:var(--accent1);letter-spacing:.05em;">LANGUAGES</h4>
-        <div class="lang-grid">
-          <div class="lang-card"><span class="lang-name">🇮🇹 Italian</span><span class="lang-level">C2 · Native</span></div>
-          <div class="lang-card"><span class="lang-name">🇬🇧 English</span><span class="lang-level">C1 · Fluent</span></div>
-          <div class="lang-card"><span class="lang-name">🇫🇷 French</span><span class="lang-level">B1/B2 · Proficient</span></div>
-        </div>
-      </div>
-      <div class="info-grid">
-        <div class="info-item"><div class="icon">📍</div>Lausanne (VD), Switzerland</div>
-        <div class="info-item"><div class="icon">🟢</div>Available immediately</div>
-        <div class="info-item"><div class="icon">🎓</div>MSc Business Analytics · HEC Lausanne</div>
-        <div class="info-item"><div class="icon">🌍</div>Italian · Permit B</div>
-        <div class="info-item"><div class="icon">🏊</div>Triathlete · Ironman 70.3 finisher 2026</div>
-        <div class="info-item"><div class="icon">📊</div>Open to BI / Data Analytics roles</div>
-        <div style="margin-top:.5rem;display:flex;gap:.7rem;flex-wrap:wrap;">
-          <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener" class="btn-outline" style="padding:.6rem 1.2rem;font-size:.83rem;">LinkedIn ↗</a>
-          <a href="https://github.com/jackb998" target="_blank" rel="noopener" class="btn-outline" style="padding:.6rem 1.2rem;font-size:.83rem;">GitHub ↗</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-
-<section id="skills" class="skills-bg">
-  <div class="section-inner">
-    <p class="section-tag">Technical stack</p>
-    <h2 class="section-title">My <span>Skills</span></h2>
-    <div class="divider"></div>
-    <div class="skills-grid fade-in">
-      <div class="skill-cat">
-        <div class="skill-cat-title">📊 BI & Reporting</div>
-        <div class="skill-tags">
-          <span class="tag">Power BI</span><span class="tag">Excel (Power Query)</span><span class="tag">Jedox</span><span class="tag">OneStream</span><span class="tag">Google Looker</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">💻 Languages</div>
-        <div class="skill-tags">
-          <span class="tag blue">R</span><span class="tag blue">VBA</span><span class="tag blue">DAX</span><span class="tag blue">SQL / PostgreSQL (in development)</span><span class="tag blue">Python (in development)</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">☁️ Cloud & Platforms</div>
-        <div class="skill-tags">
-          <span class="tag pink">MS Azure</span><span class="tag pink">Git / GitHub</span><span class="tag pink">AI-assisted development (Claude)</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">🏢 ERP Systems</div>
-        <div class="skill-tags">
-          <span class="tag green">SAP S/4HANA</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">⚙️ Methods</div>
-        <div class="skill-tags">
-          <span class="tag">Requirements Analysis</span><span class="tag">Functional Specifications</span><span class="tag">Data Modelling</span><span class="tag">Agile / Scrum</span><span class="tag">FP&A (budget, forecast, variance)</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="skill-cat-title">🤝 Business Skills</div>
-        <div class="skill-tags">
-          <span class="tag blue">Stakeholder Mgmt up to CFO</span><span class="tag blue">Requirements Gathering</span><span class="tag blue">KPI Dashboard Design</span><span class="tag blue">Month-end Close</span><span class="tag blue">User Adoption & Training</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h2>About</h2>
+  <p>I'm a Data &amp; BI Analyst with a Master's in Business Analytics from HEC Lausanne and 3 years across FP&amp;A, business reporting and quality analytics in multinational environments. I build automated Power BI and Excel reporting for finance and operational stakeholders, turning business requirements into working analytical tools.</p>
+  <p>Most recently at ALLSEAS Group, a global offshore engineering group, I built reporting for the CFO, Treasury and Cost Controllers, including an impairment model covering contracts from EUR 10M to 100M+.</p>
+  <p>Italian, Swiss B permit. I speak Italian (native), English (C1) and French (B1, B2 in progress). Outside work: emerging technologies, sports analytics and endurance sports. I finished my first Ironman 70.3 in 2026.</p>
 </section>
 
 <!-- EXPERIENCE -->
-
 <section id="experience">
-  <div class="section-inner">
-    <p class="section-tag">Career path</p>
-    <h2 class="section-title">My <span>Experience</span></h2>
-    <div class="divider"></div>
-    <div class="timeline fade-in">
+  <h2>Experience</h2>
 
-  <div class="tl-item">
-    <div class="tl-dot"></div>
-    <div class="tl-card">
-      <div class="tl-header">
-        <span class="tl-role">FP&A Analyst</span>
-        <span class="tl-date">Sep 2025 – Mar 2026</span>
-      </div>
-      <div><span class="tl-company">ALLSEAS Group SA</span><span class="tl-loc">📍 Châtel-St-Denis, CH</span></div>
-      <ul class="tl-bullets">
-        <li>Delivered <strong>KPI and variance reporting</strong> (budget, forecast, actuals) through automated Power BI and Excel solutions for Finance Business Partners, Cost Controllers, Treasury and the CFO.</li>
-        <li>Built an automated <strong>impairment calculation model</strong> across the vessel-based project portfolio (POC and Vessel Days cost allocation, IAS 36 logic), covering contracts from <strong>EUR 10M to 100M+</strong>.</li>
-        <li>Developed and published an <strong>internal web application</strong> for a company-wide event with AI-assisted development (Claude), using Git and GitHub.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <div class="entry-head"><h3>FP&amp;A Analyst, ALLSEAS Group SA</h3><span class="date">Sep 2025 – Mar 2026</span></div>
+    <p class="where">Châtel-St-Denis, Switzerland</p>
+    <ul>
+      <li>KPI and variance reporting (budget, forecast, actuals) through automated Power BI and Excel solutions for Finance Business Partners, Cost Controllers, Treasury and the CFO.</li>
+      <li>Automated impairment calculation model across the vessel-based project portfolio (POC and Vessel Days cost allocation, IAS 36 logic), covering contracts from EUR 10M to 100M+.</li>
+      <li>Internal web application for a company-wide event, built with AI-assisted development (Claude) and deployed via Git and GitHub.</li>
+    </ul>
   </div>
 
-  <div class="tl-item">
-    <div class="tl-dot"></div>
-    <div class="tl-card">
-      <div class="tl-header">
-        <span class="tl-role">FP&A Analyst</span>
-        <span class="tl-date">Feb 2024 – Jul 2025</span>
-      </div>
-      <div><span class="tl-company">SMG Swiss Marketplace Group AG</span><span class="tl-loc">📍 Zurich, CH</span></div>
-      <ul class="tl-bullets">
-        <li>Automated the monthly closing reporting cycle in Excel and PowerPoint across <strong>4 business units</strong> (Real Estate, Automotive, Finance, General Marketplace) and contributed to the Power BI self-service rollout.</li>
-        <li>Managed direct month-end communication with directors and shareholders; delivered dashboards used by <strong>~30 finance stakeholders</strong>.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <div class="entry-head"><h3>FP&amp;A Analyst, SMG Swiss Marketplace Group AG</h3><span class="date">Feb 2024 – Jul 2025</span></div>
+    <p class="where">Zurich, Switzerland</p>
+    <ul>
+      <li>Automated the monthly closing reporting cycle in Excel and PowerPoint across 4 business units (Real Estate, Automotive, Finance, General Marketplace) and contributed to the Power BI self-service rollout.</li>
+      <li>Month-end communication with directors and shareholders; dashboards used by ~30 finance stakeholders.</li>
+    </ul>
   </div>
 
-  <div class="tl-item">
-    <div class="tl-dot"></div>
-    <div class="tl-card">
-      <div class="tl-header">
-        <span class="tl-role">Quality Analyst Intern</span>
-        <span class="tl-date">Jan 2023 – Aug 2023</span>
-      </div>
-      <div><span class="tl-company">Nestlé S.A.</span><span class="tl-loc">📍 Vevey, CH</span></div>
-      <ul class="tl-bullets">
-        <li>Designed a Power BI KPI dashboard and custom search engine tracking <strong>100+ international certifications</strong> across global production sites.</li>
-        <li>Built an Excel VBA compliance tool deployed across <strong>4 Nestlé Zones</strong>, adopted by 10+ managers globally.</li>
-        <li>Bridged stakeholders and IT for an <strong>AI chatbot (GPT-3.5 / Azure)</strong> deployment — reducing expert consultation dependency by ~80%.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <div class="entry-head"><h3>Quality Analyst Intern, Nestlé S.A.</h3><span class="date">Jan 2023 – Aug 2023</span></div>
+    <p class="where">Vevey, Switzerland</p>
+    <ul>
+      <li>Power BI KPI dashboard and custom search engine tracking 100+ international certifications across global production sites.</li>
+      <li>Excel VBA compliance tool deployed across 4 Nestlé Zones, adopted by 10+ managers.</li>
+      <li>Interface between business and IT for an AI chatbot (GPT-3.5 / Azure), reducing dependency on expert consultation by ~80%.</li>
+    </ul>
   </div>
 
-  <div class="tl-item">
-    <div class="tl-dot"></div>
-    <div class="tl-card">
-      <div class="tl-header">
-        <span class="tl-role">Teaching Assistant – Data Science in BA</span>
-        <span class="tl-date">Sep – Dec 2022</span>
-      </div>
-      <div><span class="tl-company">HEC Lausanne</span><span class="tl-loc">📍 Lausanne, CH</span></div>
-      <ul class="tl-bullets">
-        <li>Supervised 10 student groups, prepared lecture materials, and evaluated <strong>25 semester projects</strong> for Prof. Tagasovska's course.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <div class="entry-head"><h3>Teaching Assistant, HEC Lausanne</h3><span class="date">Sep – Dec 2022</span></div>
+    <p class="where">Data Science in Business Analytics</p>
+    <ul>
+      <li>Supervised 10 student groups, prepared lecture materials and evaluated 25 semester projects.</li>
+    </ul>
   </div>
 
-</div>
+  <h2 style="margin-top:2.5rem;">Education</h2>
 
-<!-- EDUCATION -->
-<h3 style="margin-top:3rem;margin-bottom:1.5rem;font-size:1.3rem;font-weight:700;">🎓 Education</h3>
-<div class="edu-grid fade-in">
-  <div class="edu-card">
-    <div class="edu-year">2021 – 2023</div>
-    <div class="edu-degree">MSc Management – Business Analytics</div>
-    <div class="edu-uni">HEC Lausanne, University of Lausanne</div>
-    <div class="edu-thesis">Thesis: "Integration of an AI-Driven Chatbot in Nestlé's Quality Management"</div>
+  <div class="entry">
+    <div class="entry-head"><h3>MSc Management – Business Analytics</h3><span class="date">2021 – 2023</span></div>
+    <p class="where">HEC Lausanne, University of Lausanne</p>
+    <p>Thesis: “Integration of an AI-Driven Chatbot in Nestlé's Quality Management”</p>
   </div>
-  <div class="edu-card">
-    <div class="edu-year">2017 – 2021</div>
-    <div class="edu-degree">BSc Business Administration & Management</div>
-    <div class="edu-uni">Ca' Foscari University of Venice</div>
-    <div class="edu-thesis">Thesis: "Analysis of the Mobile Sector's Supply Chain"</div>
-  </div>
-</div>
 
+  <div class="entry">
+    <div class="entry-head"><h3>BSc Business Administration &amp; Management</h3><span class="date">2017 – 2021</span></div>
+    <p class="where">Ca' Foscari University of Venice</p>
+    <p>Thesis: “Analysis of the Mobile Sector's Supply Chain”</p>
   </div>
 </section>
 
 <!-- PROJECTS -->
+<section id="projects">
+  <h2>Selected projects</h2>
 
-<section id="projects" class="projects-bg">
-  <div class="section-inner">
-    <p class="section-tag">Selected work</p>
-    <h2 class="section-title">My <span>Projects</span></h2>
-    <div class="divider"></div>
-    <div class="projects-grid fade-in">
-
-  <div class="proj-card">
-    <div class="proj-top"><span class="proj-icon">🌐</span><span class="proj-badge work">Work · Dec 2025</span></div>
-    <div class="proj-title">ALLSEAS Christmas App</div>
-    <p class="proj-desc">Internal web application for a company-wide event, built with AI-assisted development (Claude) and deployed via Git and GitHub.</p>
-    <div class="proj-footer"><span class="tag">Web App</span><span class="tag blue">GitHub</span><span class="tag pink">Claude</span></div>
+  <div class="entry">
+    <div class="entry-head"><h3>Automated impairment model – ALLSEAS</h3><span class="date">2025</span></div>
+    <p>Replaced a manual, project-by-project review with a repeatable model in Excel and Power Query: cost allocation via POC and Vessel Days, IAS 36 logic to flag projects at risk. Used by the CFO, Treasury and Cost Controllers.</p>
   </div>
 
-  <div class="proj-card">
-    <div class="proj-top"><span class="proj-icon">📊</span><span class="proj-badge work">Work · 2025</span></div>
-    <div class="proj-title">Automated Impairment Model – ALLSEAS</div>
-    <p class="proj-desc">Replaced a manual, project-by-project review with a repeatable model: cost allocation via POC and Vessel Days, IAS 36 logic to flag projects at risk. Covers contracts from EUR 10M to 100M+, used by the CFO, Treasury and Cost Controllers.</p>
-    <div class="proj-footer"><span class="tag">Excel</span><span class="tag">Power Query</span><span class="tag blue">IAS 36</span></div>
+  <div class="entry">
+    <div class="entry-head"><h3>Christmas event web app – ALLSEAS</h3><span class="date">Dec 2025</span></div>
+    <p>Internal web application for a company-wide event, built with AI-assisted development (Claude) and deployed via Git and GitHub.</p>
   </div>
 
-  <div class="proj-card">
-    <div class="proj-top"><span class="proj-icon">🤖</span><span class="proj-badge work">Work · 2023</span></div>
-    <div class="proj-title">AI Chatbot Deployment – Nestlé</div>
-    <p class="proj-desc">Stakeholder coordination and implementation of a GPT-3.5 / Azure chatbot for the global microbiology team, reducing expert consultation dependency by ~80%.</p>
-    <div class="proj-footer"><span class="tag pink">GPT-3.5</span><span class="tag pink">Azure</span><span class="tag">AI</span></div>
+  <div class="entry">
+    <div class="entry-head"><h3>AI chatbot for microbiological regulation – Nestlé</h3><span class="date">2023</span></div>
+    <p>Gathered requirements, coordinated implementation with IT and ran adoption with the global microbiology team for a GPT-3.5 / Azure chatbot. Subject of my MSc thesis.</p>
   </div>
 
-  <div class="proj-card">
-    <div class="proj-top"><span class="proj-icon">📋</span><span class="proj-badge work">Work · 2023</span></div>
-    <div class="proj-title">VBA Compliance Tool – Nestlé</div>
-    <p class="proj-desc">Excel VBA tool for intermarket product regulation compliance. Deployed across 4 Nestlé Zones (EUR, AOA, Greater China, LATAM), adopted by 10+ managers.</p>
-    <div class="proj-footer"><span class="tag">Excel VBA</span><span class="tag blue">4 Zones</span><span class="tag green">Functional Specs</span></div>
+  <div class="entry">
+    <div class="entry-head"><h3>VBA compliance tool – Nestlé</h3><span class="date">2023</span></div>
+    <p>Excel VBA tool for intermarket product regulation: functional specifications, build, testing and rollout across 4 Nestlé Zones (EUR, AOA, Greater China, LATAM).</p>
   </div>
 
-  <div class="proj-card">
-    <div class="proj-top"><span class="proj-icon">📈</span><span class="proj-badge academic">Academic · 2022</span></div>
-    <div class="proj-title">Measurement Error Analysis – Nestlé</div>
-    <p class="proj-desc">Linear mixed-effect model in R separating instrument variance from process variance on beverage systems and filling lines, giving the quality team a statistical basis for prioritising interventions.</p>
-    <div class="proj-footer"><span class="tag blue">R</span><span class="tag">Linear Mixed-Effect Model</span></div>
+  <div class="entry">
+    <div class="entry-head"><h3>Measurement error analysis – Nestlé</h3><span class="date">2022</span></div>
+    <p>Linear mixed-effect model in R separating instrument variance from process variance on beverage systems and filling lines.</p>
   </div>
 
-  <div class="proj-card">
-    <div class="proj-top"><span class="proj-icon">🏆</span><span class="proj-badge award">1st Place · 2022</span></div>
-    <div class="proj-title">PwC Student Dev. Program</div>
-    <p class="proj-desc">SAP S/4HANA implementation project for a client case, winning 1st place in the PwC Student Development Program competition.</p>
-    <div class="proj-footer"><span class="tag green">SAP S/4HANA</span><span class="tag">PwC</span><span class="tag">1st Place 🥇</span></div>
+  <div class="entry">
+    <div class="entry-head"><h3>PwC Student Development Programme</h3><span class="date">2022</span></div>
+    <p>Client SAP S/4HANA implementation case, 1st place.</p>
   </div>
+</section>
 
-</div>
+<!-- SKILLS -->
+<section id="skills">
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>BI &amp; reporting</dt><dd>Power BI, Excel (Power Query, VBA, data modelling), Jedox, OneStream, Google Looker</dd>
+    <dt>Languages</dt><dd>R, VBA, DAX · in development: SQL / PostgreSQL, Python</dd>
+    <dt>Platforms</dt><dd>SAP S/4HANA, MS Azure, Git / GitHub, AI-assisted development (Claude)</dd>
+    <dt>Methods</dt><dd>Requirements analysis, functional specifications, data modelling, Agile / Scrum</dd>
+    <dt>Finance</dt><dd>FP&amp;A (budgeting, forecasting, variance analysis, P&amp;L), month-end close</dd>
+    <dt>Business</dt><dd>Stakeholder management up to CFO level, KPI dashboard design, user adoption and training</dd>
+  </dl>
+</section>
 
-  </div>
+<!-- BLOG: new posts go at the top of the list -->
+<section id="blog">
+  <h2>Blog</h2>
+  <ul class="posts">
+    <li><span class="date">Coming soon</span><span>First posts on reporting, data and endurance sports.</span></li>
+  </ul>
 </section>
 
 <!-- CONTACT -->
-
 <section id="contact">
-  <div class="section-inner">
-    <p class="section-tag">Get in touch</p>
-    <h2 class="section-title">Let's <span>Connect</span></h2>
-    <div class="divider"></div>
-    <div class="contact-grid fade-in">
-      <div class="contact-info">
-        <p style="color:var(--muted);line-height:1.7;margin-bottom:1rem;">Open to new opportunities in <strong style="color:var(--text)">BI, Data Analytics and FP&A</strong> roles, available immediately. Feel free to reach out.</p>
-        <a href="#" class="contact-card">
-          <div class="contact-icon">✉️</div>
-          <div><div class="contact-label">Email</div><div class="contact-val">[email removed]</div></div>
-        </a>
-        <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener" class="contact-card">
-          <div class="contact-icon">💼</div>
-          <div><div class="contact-label">LinkedIn</div><div class="contact-val">linkedin.com/in/jacopo-beghetto</div></div>
-        </a>
-        <a href="https://github.com/jackb998" target="_blank" rel="noopener" class="contact-card">
-          <div class="contact-icon">🐙</div>
-          <div><div class="contact-label">GitHub</div><div class="contact-val">github.com/jackb998</div></div>
-        </a>
-        <a href="#" class="contact-card">
-          <div class="contact-icon">📱</div>
-          <div><div class="contact-label">Phone</div><div class="contact-val">[phone removed]</div></div>
-        </a>
-      </div>
-      <div>
-        <form class="form" onsubmit="handleForm(event)">
-          <input type="text" name="name" placeholder="Your name" aria-label="Your name" autocomplete="name" required/>
-          <input type="email" name="email" placeholder="Your email" aria-label="Your email" autocomplete="email" required/>
-          <input type="text" name="subject" placeholder="Subject" aria-label="Subject"/>
-          <textarea name="message" placeholder="Your message..." aria-label="Your message" required></textarea>
-          <p class="form-note">💡 This form opens your email client with the message pre-filled.</p>
-          <button type="submit" class="btn-primary" style="border:none;cursor:pointer;width:100%;text-align:center;">Send Message ↗</button>
-        </form>
-      </div>
-    </div>
-  </div>
+  <h2>Contact</h2>
+  <ul class="contact">
+    <li><span>Email</span><a href="#">[email removed]</a></li>
+    <li><span>LinkedIn</span><a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">linkedin.com/in/jacopo-beghetto</a></li>
+    <li><span>GitHub</span><a href="https://github.com/jackb998" target="_blank" rel="noopener">github.com/jackb998</a></li>
+    <li><span>Phone</span><a href="#">[phone removed]</a></li>
+    <li><span>CV</span><a href="./JACOPO%20BEGHETTO%20CV.pdf" download>Download PDF</a></li>
+  </ul>
 </section>
 
 <!-- FOOTER -->
-
 <footer>
-  <div class="footer-inner">
-    <div class="footer-socials">
-      <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn">💼</a>
-      <a href="https://github.com/jackb998" target="_blank" rel="noopener" class="social-btn" title="GitHub" aria-label="GitHub">🐙</a>
-      <a href="#" class="social-btn" title="Email" aria-label="Email">✉️</a>
-      <a href="./JACOPO%20BEGHETTO%20CV.pdf" download class="social-btn" title="Download CV" aria-label="Download CV">📄</a>
-    </div>
-    <p class="footer-text">© <span id="year">2026</span> Jacopo Beghetto · Data & BI Analyst · Lausanne, Switzerland</p>
-  </div>
+  © <span id="year">2026</span> Jacopo Beghetto · Lausanne, Switzerland
 </footer>
 
+</div>
 <script>
-// Mobile menu
-function toggleMenu(){
-  const open=document.getElementById('mobileMenu').classList.toggle('open');
-  document.querySelector('.hamburger').setAttribute('aria-expanded',open);
-}
-
-// Close mobile menu on outside click
-document.addEventListener('click',function(e){
-  const m=document.getElementById('mobileMenu');
-  if(m.classList.contains('open') && !m.contains(e.target) && !e.target.closest('.hamburger')) toggleMenu();
-});
-
 // Footer year
 document.getElementById('year').textContent=new Date().getFullYear();
-
-// Intersection observer for fade-in
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
-},{threshold:.1});
-document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-
-// Contact form -> mailto
-function handleForm(e){
-  e.preventDefault();
-  const f=e.target;
-  const el=f.elements;
-  const name=el.name.value, email=el.email.value, subject=el.subject.value||'Website Contact', msg=el.message.value;
-  const body=`Hi Jacopo,%0A%0AMy name is ${encodeURIComponent(name)} (${encodeURIComponent(email)}).%0A%0A${encodeURIComponent(msg)}`;
-  window.location.href=`#?subject=${encodeURIComponent(subject)}&body=${body}`;
-}
-
-// Smooth active nav highlight
-const sections=document.querySelectorAll('section[id]');
-const navLinks=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id;});
-  navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-});
 </script>
-
 </body>
 </html>
