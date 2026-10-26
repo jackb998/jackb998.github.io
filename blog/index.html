@@ -16,6 +16,7 @@
 <link rel="alternate" hreflang="en" href="https://jackb998.github.io/blog/"/>
 <link rel="alternate" hreflang="it" href="https://jackb998.github.io/it/blog/"/>
 <link rel="stylesheet" href="../style.css"/>
+<script src="../menu.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -24,12 +25,15 @@
 <header>
   <h1><a href="../">Jacopo Beghetto</a></h1>
   <p class="subtitle">Blog · notes on reporting, data and endurance sports</p>
-  <nav>
-    <a href="../">Home</a>
-    <a href="./" aria-current="page">Blog</a>
-    <a href="../sport/">Sport</a>
-    <a href="../contact/">Contact</a>
-    <a href="../contact/#cv">Request CV</a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true">☰</span>Menu</button>
+    <ul id="menu">
+      <li><a href="../">Home</a></li>
+      <li><a href="../projects/">Projects</a></li>
+      <li><a href="../sport/">Sport</a></li>
+      <li><a href="./" aria-current="page">Blog</a></li>
+      <li><a href="../contact/">Contact</a></li>
+    </ul>
     <a class="lang" href="../it/blog/" hreflang="it" lang="it">Italiano</a>
   </nav>
 </header>

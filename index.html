@@ -17,6 +17,7 @@
 <link rel="alternate" hreflang="en" href="https://jackb998.github.io/"/>
 <link rel="alternate" hreflang="it" href="https://jackb998.github.io/it/"/>
 <link rel="stylesheet" href="style.css"/>
+<script src="menu.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -26,16 +27,24 @@
   <h1>Jacopo Beghetto</h1>
   <p class="subtitle">Data &amp; BI Analyst · Lausanne, Switzerland</p>
   <p class="status">Open to new opportunities in BI, Data Analytics and FP&amp;A · available immediately</p>
-  <nav>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true">☰</span>Menu</button>
+    <ul id="menu">
+      <li><a href="./" aria-current="page">Home</a></li>
+      <li><a href="projects/">Projects</a></li>
+      <li><a href="sport/">Sport</a></li>
+      <li><a href="blog/">Blog</a></li>
+      <li><a href="contact/">Contact</a></li>
+    </ul>
+    <a class="lang" href="it/" hreflang="it" lang="it">Italiano</a>
+  </nav>
+  <!-- Sections of this page -->
+  <nav class="sub-nav" aria-label="On this page">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
+    <a href="#projects">Work projects</a>
     <a href="#skills">Skills</a>
-    <a href="blog/">Blog</a>
-    <a href="sport/">Sport</a>
-    <a href="contact/">Contact</a>
     <a href="contact/#cv">Request CV</a>
-    <a class="lang" href="it/" hreflang="it" lang="it">Italiano</a>
   </nav>
 </header>
 
@@ -105,7 +114,7 @@
 
 <!-- PROJECTS -->
 <section id="projects">
-  <h2>Selected projects</h2>
+  <h2>Work projects</h2>
 
   <div class="entry">
     <div class="entry-head"><h3>Automated impairment model – ALLSEAS</h3><span class="date">2025</span></div>

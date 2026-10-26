@@ -16,6 +16,7 @@
 <link rel="alternate" hreflang="en" href="https://jackb998.github.io/contact/"/>
 <link rel="alternate" hreflang="it" href="https://jackb998.github.io/it/contact/"/>
 <link rel="stylesheet" href="../style.css"/>
+<script src="../menu.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -24,12 +25,15 @@
 <header>
   <h1><a href="../">Jacopo Beghetto</a></h1>
   <p class="subtitle">Contact · Data &amp; BI Analyst, open to new opportunities</p>
-  <nav>
-    <a href="../">Home</a>
-    <a href="../blog/">Blog</a>
-    <a href="../sport/">Sport</a>
-    <a href="./" aria-current="page">Contact</a>
-    <a href="#cv">Request CV</a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true">☰</span>Menu</button>
+    <ul id="menu">
+      <li><a href="../">Home</a></li>
+      <li><a href="../projects/">Projects</a></li>
+      <li><a href="../sport/">Sport</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="./" aria-current="page">Contact</a></li>
+    </ul>
     <a class="lang" href="../it/contact/" hreflang="it" lang="it">Italiano</a>
   </nav>
 </header>

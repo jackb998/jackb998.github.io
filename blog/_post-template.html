@@ -19,6 +19,7 @@
 <meta property="og:title" content="TITLE"/>
 <meta property="og:description" content="SUMMARY"/>
 <link rel="stylesheet" href="../style.css"/>
+<script src="../menu.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -26,11 +27,15 @@
 <!-- HEADER -->
 <header>
   <h1><a href="../">Jacopo Beghetto</a></h1>
-  <nav>
-    <a href="../">Home</a>
-    <a href="./">Blog</a>
-    <a href="../sport/">Sport</a>
-    <a href="../contact/">Contact</a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true">☰</span>Menu</button>
+    <ul id="menu">
+      <li><a href="../">Home</a></li>
+      <li><a href="../projects/">Projects</a></li>
+      <li><a href="../sport/">Sport</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../contact/">Contact</a></li>
+    </ul>
   </nav>
 </header>
 

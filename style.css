@@ -45,6 +45,14 @@ nav a:hover,nav a[aria-current="page"]{color:var(--accent);}
 /* Language switch, pushed to the right of the menu */
 nav a.lang{margin-left:auto;border:1px solid var(--rule);border-radius:3px;padding:.15rem .6rem;}
 nav a.lang:hover{border-color:var(--accent);}
+/* Main menu (macro sections) and home sub-menu (sections of the home page) */
+.main-nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;}
+.menu-btn{display:none;font-family:var(--sans);font-size:.9rem;color:var(--text);background:none;border:1px solid var(--rule);border-radius:3px;padding:.3rem .8rem;cursor:pointer;}
+.menu-btn:hover{border-color:var(--accent);}
+.menu-btn span{display:inline-block;margin-right:.4rem;}
+nav.sub-nav{margin-top:0;border-top:none;padding:.5rem 0;font-size:.82rem;}
+nav.sub-nav a{color:var(--muted);}
+nav.sub-nav a:hover{color:var(--accent);}
 
 /* SECTIONS */
 section{margin-top:3rem;}
@@ -130,6 +138,11 @@ footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--rule);font-fa
 
 /* PHONE */
 @media (max-width:600px){
+  /* Main menu folds behind the "Menu" button (only when JavaScript is on) */
+  .js .menu-btn{display:inline-block;}
+  .js .main-nav ul{display:none;order:3;width:100%;flex-direction:column;gap:0;margin-top:.4rem;}
+  .js .main-nav.open ul{display:flex;}
+  .js .main-nav ul a{display:block;padding:.65rem 0;border-top:1px solid var(--rule);}
   body{font-size:1.05rem;}
   .page{padding-top:2.2rem;}
   header h1{font-size:2rem;}

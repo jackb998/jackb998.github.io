@@ -11,8 +11,9 @@ The site presents my experience in BI, reporting and FP&A, a personal blog, my e
 | Page | Path | Content |
 |---|---|---|
 | Home | `/` | About, experience, education, selected projects, skills |
-| Blog | `/blog/` | Personal posts on reporting, data and sport |
+| Projects | `/projects/` | Personal side projects (work projects are on the home page) |
 | Sport | `/sport/` | Story and timeline of past and upcoming races |
+| Blog | `/blog/` | Personal posts on reporting, data and sport |
 | Contact | `/contact/` | LinkedIn, GitHub, contact form ("Let's connect" / "Request my CV" / "Hire me"), support link |
 | Italian version | `/it/` | Same pages in Italian (`/it/blog/`, `/it/sport/`, `/it/contact/`), switch with the "Italiano / English" button |
 
@@ -30,6 +31,8 @@ Plain **HTML and CSS**, a few lines of vanilla JavaScript. No frameworks, no bui
 ```
 index.html              Home page
 style.css               Shared style for every page (colours at the top)
+menu.js                 Folds the main menu behind a "Menu" button on phones
+projects/index.html     Personal projects
 blog/index.html         List of posts
 blog/_post-template.html  Template for new posts (not published)
 sport/index.html        Races and upcoming events
