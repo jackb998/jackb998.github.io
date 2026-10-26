@@ -4,6 +4,8 @@ Personal website of **Jacopo Beghetto**, Data & BI Analyst based in Lausanne, Sw
 
 🌐 **Live:** [jackb998.github.io](https://jackb998.github.io)
 
+The aim of this repository is to create, keep up to date and maintain my personal website.
+
 The site presents my experience in BI, reporting and FP&A, a personal blog, my endurance sports journey and a contact page for connecting, CV requests and job opportunities.
 
 ## Pages
