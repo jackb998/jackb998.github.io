@@ -24,7 +24,7 @@ The site presents my experience in BI, reporting and FP&A, a personal blog, my e
 Plain **HTML and CSS**, a few lines of vanilla JavaScript. No frameworks, no build step. The only third-party script is the Buy Me a Coffee button on the contact page.
 
 - Hosted for free on **GitHub Pages** (branch `main`, root folder)
-- Classic editorial design with automatic dark mode
+- Classic editorial design, light and dark mode (automatic or with the ☾/☀ button)
 - Contact form delivered by email through [Web3Forms](https://web3forms.com)
 - Support via [Buy Me a Coffee](https://buymeacoffee.com/gq974fttf9y)
 
@@ -34,6 +34,7 @@ Plain **HTML and CSS**, a few lines of vanilla JavaScript. No frameworks, no bui
 index.html              Home page
 style.css               Shared style for every page (colours at the top)
 menu.js                 Folds the main menu behind a "Menu" button on phones
+theme.js                Light/dark button (remembers the choice on the device)
 projects/index.html     Personal projects
 blog/index.html         List of posts
 blog/_post-template.html  Template for new posts (not published)

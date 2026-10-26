@@ -11,9 +11,10 @@
   --serif: "Iowan Old Style", "Charter", "Palatino Linotype", Palatino, Georgia, serif;
   --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
 }
-/* Dark version, used automatically if the visitor's device is in dark mode */
+/* Dark version: automatic if the visitor's device is in dark mode,
+   or forced with the light/dark button (data-theme on <html>) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #1b1a17;
     --text: #e9e5dc;
     --muted: #a39e93;
@@ -22,6 +23,17 @@
     --field: #24231f;
   }
 }
+:root[data-theme="dark"] {
+  --bg: #1b1a17;
+  --text: #e9e5dc;
+  --muted: #a39e93;
+  --rule: #3a3833;
+  --accent: #e0957f;
+  --field: #24231f;
+}
+:root{color-scheme:light;}
+:root[data-theme="dark"]{color-scheme:dark;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;}}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
@@ -45,6 +57,11 @@ nav a:hover,nav a[aria-current="page"]{color:var(--accent);}
 /* Language switch, pushed to the right of the menu */
 nav a.lang{margin-left:auto;border:1px solid var(--rule);border-radius:3px;padding:.15rem .6rem;}
 nav a.lang:hover{border-color:var(--accent);}
+/* Light/dark button, next to the language switch */
+.theme-btn{font-family:var(--sans);font-size:.95rem;line-height:1;color:var(--text);background:none;border:1px solid var(--rule);border-radius:3px;padding:.3rem .55rem;cursor:pointer;}
+.theme-btn:hover{border-color:var(--accent);}
+nav .theme-btn{margin-left:auto;}
+nav .theme-btn + a.lang{margin-left:.5rem;}
 /* Main menu (macro sections) and home sub-menu (sections of the home page) */
 .main-nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;}
 .menu-btn{display:none;font-family:var(--sans);font-size:.9rem;color:var(--text);background:none;border:1px solid var(--rule);border-radius:3px;padding:.3rem .8rem;cursor:pointer;}
