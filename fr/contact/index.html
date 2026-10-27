@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- SECURITY: the browser only runs the scripts listed here. If you edit a script block on this page,
+     its sha256 hash must be updated too (the browser console shows the new hash). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-lX+yPmXlBIdg/KG/m5t8ILeETX8zw2OU2aJxB7htvD4=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.web3forms.com; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.web3forms.com; object-src 'none'; base-uri 'self'"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<title>Contact – Jacopo Beghetto</title>
+<meta name="description" content="Contactez Jacopo Beghetto, Data & BI Analyst à Lausanne : pour rester en contact, demander son CV ou proposer un poste."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://jackb998.github.io/fr/contact/"/>
+<meta property="og:title" content="Contact – Jacopo Beghetto"/>
+<meta property="og:description" content="Restons en contact, demandez mon CV ou proposez-moi un poste."/>
+<link rel="alternate" hreflang="en" href="https://jackb998.github.io/contact/"/>
+<link rel="alternate" hreflang="it" href="https://jackb998.github.io/it/contact/"/>
+<link rel="alternate" hreflang="fr" href="https://jackb998.github.io/fr/contact/"/>
+<script src="../../theme.js"></script>
+<link rel="stylesheet" href="../../style.css"/>
+<script src="../../menu.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <h1><a href="../">Jacopo Beghetto</a></h1>
+  <p class="subtitle">Contact · Data &amp; BI Analyst, ouvert à de nouvelles opportunités</p>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true">☰</span>Menu</button>
+    <ul id="menu">
+      <li><a href="../">Accueil</a></li>
+      <li><a href="../projects/">Projets</a></li>
+      <li><a href="../sport/">Sport</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="./" aria-current="page">Contact</a></li>
+    </ul>
+    <button class="theme-btn" type="button" hidden>☾</button>
+    <span class="langs"><a href="../../contact/" hreflang="en" lang="en" aria-label="English">EN</a><a href="../../it/contact/" hreflang="it" lang="it" aria-label="Italiano">IT</a><span aria-current="true">FR</span></span>
+  </nav>
+</header>
+
+<!-- LIENS -->
+<section>
+  <h2>Où me trouver</h2>
+  <ul class="contact">
+    <li><span>LinkedIn</span><a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">linkedin.com/in/jacopo-beghetto</a></li>
+    <li><span>GitHub</span><a href="https://github.com/jackb998" target="_blank" rel="noopener">github.com/jackb998</a></li>
+  </ul>
+</section>
+
+<!-- FORMULAIRE : collez la clé Web3Forms dans value="" ci-dessous (la même que sur la page anglaise). -->
+<section id="cv">
+  <h2>Écrivez-moi</h2>
+  <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value=""/>
+    <input type="hidden" name="subject" value=""/>
+    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
+
+    <!-- Les trois options : les champs ci-dessous changent selon le choix.
+         Les valeurs restent en anglais pour que l'objet de l'e-mail soit le même que sur la page anglaise. -->
+    <fieldset class="choice">
+      <legend>Qu'est-ce qui vous amène ici ?</legend>
+      <label><input type="radio" name="topic" value="Let's connect" checked/> Restons en contact</label>
+      <label><input type="radio" name="topic" value="CV request"/> Demander mon CV</label>
+      <label><input type="radio" name="topic" value="Hire me"/> Me recruter ?</label>
+    </fieldset>
+
+    <label>Nom<input type="text" name="name" autocomplete="name" required/></label>
+    <label>E-mail<input type="email" name="email" autocomplete="email" required/></label>
+
+    <!-- "Demander mon CV" (facultatif) et "Me recruter ?" (obligatoire) -->
+    <label class="company-field" hidden>Entreprise<input type="text" name="company" autocomplete="organization"/></label>
+    <!-- Seulement pour "Me recruter ?" -->
+    <label class="role-field" hidden>Poste<input type="text" name="role" placeholder="ex. BI Analyst, Lausanne"/></label>
+
+    <label>Message<textarea name="message" id="message" required></textarea></label>
+    <label class="check cv-extra" hidden><input type="checkbox" name="cv_request" value="Yes"/> Envoyez-moi aussi votre CV</label>
+
+    <button type="submit" id="sendBtn">Envoyer le message</button>
+    <p class="form-note" id="formNote" role="status"></p>
+    <p class="form-note">Confidentialité : votre message arrive dans ma boîte de réception via <a href="https://web3forms.com/privacy" target="_blank" rel="noopener">Web3Forms</a> et sert uniquement à vous répondre. Ce site n'enregistre rien.</p>
+  </form>
+</section>
+
+<!-- SOUTIEN : un lien discret, sans bouton -->
+<section id="support">
+  <h2>Suivez-moi</h2>
+  <p>Si vous souhaitez suivre l'évolution de ma carrière, ou soutenir un peu plus mes prochaines courses, vous pouvez <a href="https://buymeacoffee.com/gq974fttf9y" target="_blank" rel="noopener">m'offrir un café</a>. Merci !</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © <span id="year">2026</span> Jacopo Beghetto · Lausanne, Suisse
+</footer>
+
+</div>
+<script>
+// Année dans le pied de page
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Formulaire : "Restons en contact", "Demander mon CV" ou "Me recruter ?", envoyé via Web3Forms
+const form=document.getElementById('contactForm');
+const note=document.getElementById('formNote');
+const texts={
+  "Let's connect":{button:'Envoyer le message',placeholder:''},
+  'CV request':{button:'Demander le CV',placeholder:'Facultatif : décrivez-moi brièvement le poste ou pourquoi vous souhaitez mon CV.'},
+  'Hire me':{button:'Envoyer la proposition',placeholder:"Parlez-moi du poste, de l'équipe et des prochaines étapes."}
+};
+
+// Adapte le formulaire à l'option choisie
+function updateForm(){
+  const topic=form.elements.topic.value;
+  const cv=topic==='CV request', hire=topic==='Hire me';
+  form.querySelector('.company-field').hidden=!(cv||hire);
+  form.querySelector('.role-field').hidden=!hire;
+  form.querySelector('.cv-extra').hidden=!hire;
+  form.elements.company.required=hire;
+  form.elements.message.required=!cv;
+  form.elements.message.placeholder=texts[topic].placeholder;
+  document.getElementById('sendBtn').textContent=texts[topic].button;
+}
+form.querySelectorAll('input[name="topic"]').forEach(r=>r.addEventListener('change',updateForm));
+
+// Les liens "Demander mon CV" pointent vers #cv : sélectionne l'option CV
+function checkHash(){
+  if(location.hash==='#cv'){
+    form.querySelector('input[value="CV request"]').checked=true;
+    updateForm();
+  }
+}
+window.addEventListener('hashchange',checkHash);
+checkHash();
+
+form.addEventListener('submit',async function(e){
+  e.preventDefault();
+  const data=new FormData(form);
+  if(!data.get('access_key')){
+    note.innerHTML='Le formulaire n\'est pas encore actif. Contactez-moi sur <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
+    return;
+  }
+  // Objet de l'e-mail, par ex. "Hire me + CV request – jackb998.github.io (FR)"
+  const topic=data.get('topic');
+  data.set('subject',topic+(topic==='Hire me'&&data.get('cv_request')?' + CV request':'')+' – jackb998.github.io (FR)');
+  note.textContent='Envoi en cours...';
+  try{
+    const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
+    const out=await res.json();
+    if(!out.success) throw new Error(out.message);
+    form.reset();
+    updateForm();
+    note.textContent=topic==='CV request'?'Merci, votre demande a bien été envoyée. Je vous répondrai par e-mail.':'Merci, votre message a bien été envoyé. Je vous répondrai par e-mail.';
+  }catch(err){
+    note.innerHTML='Désolé, le message n\'a pas pu être envoyé. Contactez-moi sur <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
+  }
+});
+</script>
+<!-- Bouton flottant Buy Me a Coffee (uniquement sur cette page). Supprimez ces lignes pour le masquer. -->
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="gq974fttf9y" data-description="Support me on Buy me a coffee!" data-message="" data-color="#8c2f1f" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

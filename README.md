@@ -17,7 +17,10 @@ The site presents my experience in BI, reporting and FP&A, a personal blog, my e
 | Sport | `/sport/` | Story and timeline of past and upcoming races |
 | Blog | `/blog/` | Personal posts on reporting, data and sport |
 | Contact | `/contact/` | LinkedIn, GitHub, contact form ("Let's connect" / "Request my CV" / "Hire me"), support link |
-| Italian version | `/it/` | Same pages in Italian (`/it/blog/`, `/it/sport/`, `/it/contact/`), switch with the "Italiano / English" button |
+| Italian version | `/it/` | Same pages in Italian (`/it/projects/`, `/it/sport/`, `/it/blog/`, `/it/contact/`) |
+| French version | `/fr/` | Same pages in French (`/fr/projects/`, `/fr/sport/`, `/fr/blog/`, `/fr/contact/`) |
+
+Switch language with the **EN · IT · FR** selector in the menu of every page.
 
 ## Built with
 
@@ -41,9 +44,10 @@ blog/_post-template.html  Template for new posts (not published)
 sport/index.html        Races and upcoming events
 contact/index.html      Contact form and support section
 it/                     Italian version of every page (same structure)
+fr/                     French version of every page (same structure)
 ```
 
-When you change a text, update both the English page and its Italian copy in `it/`.
+When you change a text, update the English page and its copies in `it/` and `fr/`.
 
 ## Editing
 

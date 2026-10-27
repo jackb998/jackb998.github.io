@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- SECURITY: the browser only runs the scripts listed here. If you edit a script block on this page,
+     its sha256 hash must be updated too (the browser console shows the new hash). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-6a5NK/8rI1Nqv2CJiwqxtcRoHeW63nDjSwcVrc84chw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'none'; object-src 'none'; base-uri 'self'"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<title>Blog – Jacopo Beghetto</title>
+<meta name="description" content="Le blog de Jacopo Beghetto : notes sur le reporting, les données et les sports d'endurance."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://jackb998.github.io/fr/blog/"/>
+<meta property="og:title" content="Blog – Jacopo Beghetto"/>
+<meta property="og:description" content="Notes sur le reporting, les données et les sports d'endurance."/>
+<link rel="alternate" hreflang="en" href="https://jackb998.github.io/blog/"/>
+<link rel="alternate" hreflang="it" href="https://jackb998.github.io/it/blog/"/>
+<link rel="alternate" hreflang="fr" href="https://jackb998.github.io/fr/blog/"/>
+<script src="../../theme.js"></script>
+<link rel="stylesheet" href="../../style.css"/>
+<script src="../../menu.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <h1><a href="../">Jacopo Beghetto</a></h1>
+  <p class="subtitle">Blog · notes sur le reporting, les données et les sports d'endurance</p>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true">☰</span>Menu</button>
+    <ul id="menu">
+      <li><a href="../">Accueil</a></li>
+      <li><a href="../projects/">Projets</a></li>
+      <li><a href="../sport/">Sport</a></li>
+      <li><a href="./" aria-current="page">Blog</a></li>
+      <li><a href="../contact/">Contact</a></li>
+    </ul>
+    <button class="theme-btn" type="button" hidden>☾</button>
+    <span class="langs"><a href="../../blog/" hreflang="en" lang="en" aria-label="English">EN</a><a href="../../it/blog/" hreflang="it" lang="it" aria-label="Italiano">IT</a><span aria-current="true">FR</span></span>
+  </nav>
+</header>
+
+<!-- ARTICLES : ajoutez chaque nouvel article en haut de la liste. Les articles peuvent être en anglais
+  (lien vers ../../blog/nom-article.html) ou en français (fichier dans ce dossier). Exemple :
+  <li><span class="date">12 oct. 2026</span><a href="../../blog/2026-10-12-titre.html">Titre de l'article</a></li>
+-->
+<section>
+  <h2>Tous les articles</h2>
+  <ul class="posts">
+    <li><span class="date">Bientôt</span><span>Les premiers articles sont en préparation.</span></li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © <span id="year">2026</span> Jacopo Beghetto · Lausanne, Suisse
+</footer>
+
+</div>
+<script>
+// Année dans le pied de page
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

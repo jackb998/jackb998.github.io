@@ -54,14 +54,16 @@ header h1 a{color:inherit;text-decoration:none;}
 nav{margin-top:1.6rem;padding:.7rem 0;border-top:1px solid var(--text);border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:.9rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;}
 nav a{color:var(--text);text-decoration:none;padding:.2rem 0;}
 nav a:hover,nav a[aria-current="page"]{color:var(--accent);}
-/* Language switch, pushed to the right of the menu */
-nav a.lang{margin-left:auto;border:1px solid var(--rule);border-radius:3px;padding:.15rem .6rem;}
-nav a.lang:hover{border-color:var(--accent);}
+/* Language switch EN · IT · FR, pushed to the right of the menu; the current language is not a link */
+.langs{margin-left:auto;display:flex;border:1px solid var(--rule);border-radius:3px;font-size:.82rem;letter-spacing:.04em;}
+.langs a,.langs span{padding:.2rem .5rem;}
+.langs > * + *{border-left:1px solid var(--rule);}
+.langs span[aria-current]{color:var(--accent);font-weight:600;}
 /* Light/dark button, next to the language switch */
 .theme-btn{font-family:var(--sans);font-size:.95rem;line-height:1;color:var(--text);background:none;border:1px solid var(--rule);border-radius:3px;padding:.3rem .55rem;cursor:pointer;}
 .theme-btn:hover{border-color:var(--accent);}
 nav .theme-btn{margin-left:auto;}
-nav .theme-btn + a.lang{margin-left:.5rem;}
+nav .theme-btn + .langs{margin-left:.5rem;}
 /* Main menu (macro sections) and home sub-menu (sections of the home page) */
 .main-nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;}
 .menu-btn{display:none;font-family:var(--sans);font-size:.9rem;color:var(--text);background:none;border:1px solid var(--rule);border-radius:3px;padding:.3rem .8rem;cursor:pointer;}
