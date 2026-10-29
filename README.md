@@ -28,7 +28,7 @@ Plain **HTML and CSS**, a few lines of vanilla JavaScript. No frameworks, no bui
 
 - Hosted for free on **GitHub Pages** (branch `main`, root folder)
 - Classic editorial design, light and dark mode (automatic or with the ☾/☀ button)
-- Contact form delivered by email through [Web3Forms](https://web3forms.com)
+- Contact form delivered by email through [Formdall](https://formdall.de)
 - Support via [Buy Me a Coffee](https://buymeacoffee.com/gq974fttf9y)
 
 ## Structure

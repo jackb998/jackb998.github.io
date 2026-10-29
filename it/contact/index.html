@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <!-- SECURITY: the browser only runs the scripts listed here. If you edit a script block on this page,
      its sha256 hash must be updated too (the browser console shows the new hash). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-CD1YhiKdtq5IX/6KK9U57Op493+fh7syILc7Uti+kpg=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.web3forms.com; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.web3forms.com; object-src 'none'; base-uri 'self'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-S0qZX6KmUETqfbEbxV+Q4bDx/X5sHG+9XWbORX/z2es=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.formdall.de; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.formdall.de; object-src 'none'; base-uri 'self'"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <title>Contatti – Jacopo Beghetto</title>
 <meta name="description" content="Contatta Jacopo Beghetto, Data & BI Analyst a Losanna: per restare in contatto, richiedere il CV o proporre una posizione."/>
@@ -50,11 +50,10 @@
   </ul>
 </section>
 
-<!-- FORM: incolla la chiave Web3Forms in value="" qui sotto (la stessa della pagina inglese). -->
+<!-- FORM: i messaggi arrivano via email tramite Formdall (stesso indirizzo delle pagine EN e FR). -->
 <section id="cv">
   <h2>Scrivimi</h2>
-  <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value=""/>
+  <form class="form" id="contactForm" action="https://api.formdall.de/api/v1/f/cW0tTPI1qW6QCXQT0qTSekmiuiGkqPgoPZnZqByY" method="POST">
     <input type="hidden" name="subject" value=""/>
     <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
 
@@ -80,7 +79,7 @@
 
     <button type="submit" id="sendBtn">Invia messaggio</button>
     <p class="form-note" id="formNote" role="status"></p>
-    <p class="form-note">Privacy: il tuo messaggio arriva nella mia casella tramite <a href="https://web3forms.com/privacy" target="_blank" rel="noopener">Web3Forms</a> e lo uso solo per risponderti. Questo sito non salva nulla.</p>
+    <p class="form-note">Privacy: il tuo messaggio arriva nella mia casella tramite <a href="https://formdall.de/datenschutz/" target="_blank" rel="noopener">Formdall</a> e lo uso solo per risponderti. Questo sito non salva nulla.</p>
   </form>
 </section>
 
@@ -100,7 +99,7 @@
 // Anno nel footer
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// Form: "Restiamo in contatto", "Richiedi il mio CV" o "Vuoi assumermi?", inviato tramite Web3Forms
+// Form: "Restiamo in contatto", "Richiedi il mio CV" o "Vuoi assumermi?", inviato tramite Formdall
 const form=document.getElementById('contactForm');
 const note=document.getElementById('formNote');
 const texts={
@@ -136,10 +135,9 @@ checkHash();
 form.addEventListener('submit',async function(e){
   e.preventDefault();
   const data=new FormData(form);
-  if(!data.get('access_key')){
-    note.innerHTML='Il form non è ancora attivo. Contattami su <a href="https://linkedin.com/in/jacopo-beghetto" target="_blank" rel="noopener">LinkedIn</a>.';
-    return;
-  }
+  // Hidden anti-spam box: only bots tick it, so nothing is sent
+  if(data.get('botcheck')) return;
+  data.delete('botcheck');
   // Oggetto dell'email, es. "Hire me + CV request – jackb998.github.io (IT)"
   const topic=data.get('topic');
   data.set('subject',topic+(topic==='Hire me'&&data.get('cv_request')?' + CV request':'')+' – jackb998.github.io (IT)');
@@ -147,7 +145,7 @@ form.addEventListener('submit',async function(e){
   try{
     const res=await fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}});
     const out=await res.json();
-    if(!out.success) throw new Error(out.message);
+    if(!res.ok||!out.success) throw new Error(out.message);
     form.reset();
     updateForm();
     note.textContent=topic==='CV request'?'Grazie, la richiesta è stata inviata. Ti risponderò via email.':'Grazie, il messaggio è stato inviato. Ti risponderò via email.';
