@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <!-- SECURITY: the browser only runs the scripts listed here. If you edit a script block on this page,
      its sha256 hash must be updated too (the browser console shows the new hash). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-TaT9V781mxcRBzWXent9dKGQbAFrq9CZc/vkfNdRBqw=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.formdall.de; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.formdall.de; object-src 'none'; base-uri 'self'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://api.formdall.de 'sha256-w6DuIBmJt7oWQ17Oq5FiGlz4peWcYf/B5OTvXN6BwSc=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.formdall.de; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.formdall.de; worker-src blob: data:; object-src 'none'; base-uri 'self'"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <title>Contact – Jacopo Beghetto</title>
 <meta name="description" content="Contactez Jacopo Beghetto, Data & BI Analyst à Lausanne : pour rester en contact, demander son CV ou proposer un poste."/>
@@ -19,6 +19,8 @@
 <script src="../../theme.js"></script>
 <link rel="stylesheet" href="../../style.css"/>
 <script src="../../menu.js" defer></script>
+<!-- ALTCHA anti-spam check, served by Formdall -->
+<script async defer src="https://api.formdall.de/api/v1/altcha/widget.js" type="module"></script>
 </head>
 <body>
 <div class="page">
@@ -55,7 +57,6 @@
   <h2>Écrivez-moi</h2>
   <form class="form" id="contactForm" action="https://api.formdall.de/api/v1/f/cW0tTPI1qW6QCXQT0qTSekmiuiGkqPgoPZnZqByY" method="POST">
     <input type="hidden" name="subject" value=""/>
-    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
 
     <!-- Les trois options : les champs ci-dessous changent selon le choix.
          Les valeurs restent en anglais pour que l'objet de l'e-mail soit le même que sur la page anglaise. -->
@@ -76,6 +77,10 @@
 
     <label>Message<textarea name="message" id="message" required></textarea></label>
     <label class="check cv-extra" hidden><input type="checkbox" name="cv_request" value="Yes"/> Envoyez-moi aussi votre CV</label>
+
+    <!-- Anti-spam (extrait Formdall, ne pas modifier) : champ caché rempli seulement par les robots et vérification ALTCHA -->
+    <input type="text" name="_url" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <altcha-widget challenge="https://api.formdall.de/api/v1/altcha/challenge" name="altcha"></altcha-widget>
 
     <button type="submit" id="sendBtn">Envoyer le message</button>
     <p class="form-note" id="formNote" role="status"></p>
@@ -132,12 +137,14 @@ function checkHash(){
 window.addEventListener('hashchange',checkHash);
 checkHash();
 
+// Textes de la vérification anti-spam en français (le widget ALTCHA ne contient que l'anglais)
+customElements.whenDefined('altcha-widget').then(()=>globalThis.$altcha.i18n.set('fr',{"label": "Je ne suis pas un robot", "verify": "Vérifier", "verifying": "Vérification en cours...", "verified": "Vérifié", "loading": "Chargement...", "error": "La vérification a échoué. Réessayez plus tard.", "expired": "Vérification expirée. Réessayez.", "verificationRequired": "Vérification requise !", "waitAlert": "Vérification en cours... veuillez patienter.", "reload": "Recharger", "cancel": "Annuler", "ariaLinkLabel": "Altcha (site officiel)", "footer": "Protégé par <a href=\"https://altcha.org/\" tabindex=\"-1\" target=\"_blank\" aria-label=\"Altcha (site officiel)\">ALTCHA</a>"}));
+
 form.addEventListener('submit',async function(e){
   e.preventDefault();
   const data=new FormData(form);
-  // Hidden anti-spam box: only bots tick it, so nothing is sent
-  if(data.get('botcheck')) return;
-  data.delete('botcheck');
+  // Champ anti-spam caché : seuls les robots le remplissent, donc rien n'est envoyé
+  if(data.get('_url')) return;
   // Objet de l'e-mail, par ex. "Hire me + CV request – jackb998.github.io (FR)"
   const topic=data.get('topic');
   data.set('subject',topic+(topic==='Hire me'&&data.get('cv_request')?' + CV request':'')+' – jackb998.github.io (FR)');
@@ -147,6 +154,7 @@ form.addEventListener('submit',async function(e){
     const out=await res.json();
     if(!res.ok||!out.success) throw new Error(out.message);
     form.reset();
+    form.querySelector('altcha-widget').reset?.();
     updateForm();
     note.textContent=topic==='CV request'?'Merci, votre demande a bien été envoyée. Je vous répondrai par e-mail.':'Merci, votre message a bien été envoyé. Je vous répondrai par e-mail.';
   }catch(err){

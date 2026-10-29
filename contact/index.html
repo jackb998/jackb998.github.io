@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <!-- SECURITY: the browser only runs the scripts listed here. If you edit a script block on this page,
      its sha256 hash must be updated too (the browser console shows the new hash). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YTQyBM8GUVcxylW9KwxXX61r1V4VxYudg/1azovPboU=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.formdall.de; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.formdall.de; object-src 'none'; base-uri 'self'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://api.formdall.de 'sha256-emMt58ShU03JjDFWwllDnNRc8xCFVIb4+h1qhuOx7R4=' https://cdnjs.buymeacoffee.com; style-src 'self' 'unsafe-inline' https://cdn.buymeacoffee.com; img-src 'self' data: https://cdn.buymeacoffee.com https://www.buymeacoffee.com https://buymeacoffee.com; font-src 'self' https://cdn.buymeacoffee.com; connect-src 'self' https://api.formdall.de; frame-src https://www.buymeacoffee.com https://buymeacoffee.com; form-action https://api.formdall.de; worker-src blob: data:; object-src 'none'; base-uri 'self'"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <title>Contact – Jacopo Beghetto</title>
 <meta name="description" content="Get in touch with Jacopo Beghetto, Data & BI Analyst in Lausanne: connect, request his CV or discuss a role."/>
@@ -19,6 +19,8 @@
 <script src="../theme.js"></script>
 <link rel="stylesheet" href="../style.css"/>
 <script src="../menu.js" defer></script>
+<!-- ALTCHA anti-spam check, served by Formdall -->
+<script async defer src="https://api.formdall.de/api/v1/altcha/widget.js" type="module"></script>
 </head>
 <body>
 <div class="page">
@@ -55,7 +57,6 @@
   <h2>Write to me</h2>
   <form class="form" id="contactForm" action="https://api.formdall.de/api/v1/f/cW0tTPI1qW6QCXQT0qTSekmiuiGkqPgoPZnZqByY" method="POST">
     <input type="hidden" name="subject" value=""/>
-    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off"/>
 
     <!-- The three options: the fields below change with the choice -->
     <fieldset class="choice">
@@ -75,6 +76,10 @@
 
     <label>Message<textarea name="message" id="message" required></textarea></label>
     <label class="check cv-extra" hidden><input type="checkbox" name="cv_request" value="Yes"/> Please send me your CV too</label>
+
+    <!-- Anti-spam (from the Formdall snippet, keep unchanged): hidden field that only bots fill in, and the ALTCHA check -->
+    <input type="text" name="_url" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <altcha-widget challenge="https://api.formdall.de/api/v1/altcha/challenge" name="altcha"></altcha-widget>
 
     <button type="submit" id="sendBtn">Send message</button>
     <p class="form-note" id="formNote" role="status"></p>
@@ -134,9 +139,8 @@ checkHash();
 form.addEventListener('submit',async function(e){
   e.preventDefault();
   const data=new FormData(form);
-  // Hidden anti-spam box: only bots tick it, so nothing is sent
-  if(data.get('botcheck')) return;
-  data.delete('botcheck');
+  // Hidden anti-spam field: only bots fill it in, so nothing is sent
+  if(data.get('_url')) return;
   // Email subject, e.g. "Hire me + CV request – jackb998.github.io"
   const topic=data.get('topic');
   data.set('subject',topic+(topic==='Hire me'&&data.get('cv_request')?' + CV request':'')+' – jackb998.github.io');
@@ -146,6 +150,7 @@ form.addEventListener('submit',async function(e){
     const out=await res.json();
     if(!res.ok||!out.success) throw new Error(out.message);
     form.reset();
+    form.querySelector('altcha-widget').reset?.();
     updateForm();
     note.textContent=topic==='CV request'?'Thank you, your request has been sent. I will reply by email.':'Thank you, your message has been sent. I will reply by email.';
   }catch(err){
