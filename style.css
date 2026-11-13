@@ -88,6 +88,9 @@ p + p{margin-top:1rem;}
 .entry li{margin-bottom:.3rem;}
 .entry p{margin-top:.3rem;}
 
+/* APP ICON (next to a project name) */
+.app-icon{width:1.3em;height:1.3em;vertical-align:-.25em;margin-right:.45rem;}
+
 /* SKILLS */
 dl.skills{display:grid;grid-template-columns:11rem 1fr;gap:.5rem 1.2rem;}
 dl.skills dt{font-weight:600;}
